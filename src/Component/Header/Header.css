@@ -1,7 +1,11 @@
-.header{
-background-color: rgb(248, 245, 245);
-box-shadow: 1rem;
-height: 60px;
-display: flex;
-align-items: center;
+.header {
+    background-color: #0E1927;
+    box-shadow: 1rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    height: 60px;
 }

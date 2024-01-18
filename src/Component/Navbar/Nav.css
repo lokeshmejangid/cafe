@@ -1,3 +1,7 @@
 .nav{
     display: flex;
 }
+.text{
+    text-decoration: none;
+    color:white;
+}

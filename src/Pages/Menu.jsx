@@ -3,15 +3,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import MUIDataTable from "mui-datatables";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 
 const Menu = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const columns = [
     {
@@ -95,11 +88,14 @@ const Menu = () => {
 
   ];
 
+
+
   const options = {
     filterType: 'checkbox',
     print	: 'false',
     download:'false',
     viewColumns	:'false',
+    selectableRows :'none',
   };
 
 

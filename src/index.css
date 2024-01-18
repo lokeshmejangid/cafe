@@ -1,13 +1,30 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
-.h-content{
+
+.h-content {
   height: calc(100vh - 120px);
 }
-.green{
+
+.green {
   color: green;
 }
-.red{
+
+.red {
   color: red;
+}
+
+.h-content .MuiTable-root thead tr th div {
+  font-weight: bold;
+}
+
+.h-content .MuiTable-root .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon,
+.h-content .MuiTable-root thead tr th span,
+.h-content .MuiTable-root thead tr th {
+  text-align: center !important;
+  justify-content: center;
+}
+.h-content .MuiTable-root{
+  background-image:'1.jpg';
 }

@@ -6,16 +6,16 @@ const Nav = () => {
   return (
    <List className='nav'>
     <ListItem>
-        <a href="/">Menu</a>
+        <a href="/" className='text'>Menu</a>
     </ListItem>
     <ListItem>
-    <a href="/cart">Cart</a>
+    <a href="/cart" className='text'>Cart</a>
     </ListItem>
     <ListItem>
-    <a href="bills/">Bills</a>
+    <a href="bills/" className='text'>Bills</a>
     </ListItem>
     <ListItem>
-    <a href="/customer">Customer</a>
+    <a href="/customer" className='text'>Customer</a>
     </ListItem>
    </List>
   )
