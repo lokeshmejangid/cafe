@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Grid, TextField, Button } from "@mui/material";
+import { TodayOutlined } from "@mui/icons-material";
 
 const AddEditModal = (props) => {
   const { isEdit, handleClose, editData, handleUpdate } = props;
 
-  console.log(editData);
+  const [txtItemName, setItemName] = useState("");
+  const [txtItemCategory, setItemCategory] = useState("");
+  const [txtItemPrice, setItemPrice] = useState("");
+
+  useEffect(() => {
+    setItemName(editData[1]);
+    setItemCategory(editData[2]);
+    setItemPrice(editData[3]);
+  }, []);
+
   const handleSave = () => {
     handleClose();
     handleUpdate();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "txtItemName") {
+      setItemName(value);
+    } else if (name === "txtItemCategory") {
+      setItemCategory(value);
+    } else if (name === "txtItemPrice") {
+      setItemPrice(value);
+    } else {
+      // Handle other cases
+    }
   };
 
   return (
@@ -22,26 +46,32 @@ const AddEditModal = (props) => {
         <Grid item xs={12} justifyContent={"center"}>
           <TextField
             id="txtItemName"
+            name="txtItemName"
             label="Item Name"
             variant="outlined"
             fullWidth
-            value={editData[1]}
+            value={txtItemName}
+            onChange={handleChange}
           />
           <TextField
             id="txtItemCategory"
+            name="txtItemCategory"
             label="Item Category"
             variant="outlined"
             fullWidth
             sx={{ mt: 1 }}
-            value={editData[2]}
+            value={txtItemCategory}
+            onChange={handleChange}
           />
           <TextField
             id="txtItemPrice"
+            name="txtItemPrice"
             label="Item Price"
             variant="outlined"
             fullWidth
             sx={{ mt: 1 }}
-            value={editData[3]}
+            value={txtItemPrice}
+            onChange={handleChange}
           />
         </Grid>
         <Grid

@@ -7,9 +7,11 @@ import MenuData from "../Utility/MenuData.json";
 import AddEditModal from "../Component/Modal/AddEditModal";
 import DeleteModal from "../Component/Modal/DeleteModal";
 import { ToastContainer, toast } from 'react-toastify';
+import {useNavigate } from "react-router-dom";
 
 
 const Menu = () => {
+  const navigate = useNavigate();
   const [isEdit, setEdit] = useState(false);
   const [editData, setEditData] = useState();
   const [isDelete, setDelete] = useState(false);
@@ -34,6 +36,8 @@ const Menu = () => {
     toast.success("Item Added in cart", {
       position: "top-center"
     });
+
+    //navigate('/cart');
   }
 
   const handleUpdate = () => {

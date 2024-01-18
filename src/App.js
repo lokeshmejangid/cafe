@@ -6,6 +6,7 @@ import Menu from "./Pages/Menu";
 import Cart from "./Pages/Cart";
 import Bills from "./Pages/Bills";
 import Customer from "./Pages/Customer";
+import './App.css'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
