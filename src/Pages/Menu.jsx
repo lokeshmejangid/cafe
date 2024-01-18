@@ -1,17 +1,47 @@
-import React from 'react'
-import EditIcon from '@mui/icons-material/Edit';
+import React, { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import MUIDataTable from "mui-datatables";
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import DeleteIcon from "@mui/icons-material/Delete";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import MenuData from "../Utility/MenuData.json";
+import AddEditModal from "../Component/Modal/AddEditModal";
+import DeleteModal from "../Component/Modal/DeleteModal";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Menu = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [isEdit, setEdit] = useState(false);
+  const [editData, setEditData] = useState();
+  const [isDelete, setDelete] = useState(false);
+
+  const handleEdit = (data) => {
+    setEdit(true);
+    setEditData(data);
+  }
+
+  const handleClose = () => {
+    setEdit(false);
+    setDelete(false);
+  }
+  const handleDelete = () => {
+    toast.error("Item Deleted", {
+      position: "top-center"
+    });
+  }
+
+  const addToCart = (tableMeta) => {
+    console.log(tableMeta.rowData);
+    toast.success("Item Added in cart", {
+      position: "top-center"
+    });
+  }
+
+  const handleUpdate = () => {
+    toast.success("Data Updated", {
+      position: "top-center"
+    });
+  }
+
 
   const columns = [
     {
@@ -26,6 +56,10 @@ const Menu = () => {
       label: "Category",
       name: "category",
     },
+    {
+      label: "Price",
+      name: "price",
+    },
 
     {
       name: "Update",
@@ -37,29 +71,26 @@ const Menu = () => {
           return (
             <>
               <EditIcon
-                className="green"
+                className="green icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.alert('EDIT')
-                }
-                }
+                  handleEdit(tableMeta.rowData)
+                }}
               >
                 Edit
-              </EditIcon >
+              </EditIcon>
               <DeleteIcon
-                className="red"
+                className="red icon"
                 onClick={(e) => {
-                  const { data } = this.state;
-                  data.shift();
-                  this.setState({ data });
+                  setDelete(true)
                 }}
               >
                 Delete
               </DeleteIcon>
             </>
           );
-        }
-      }
+        },
+      },
     },
     {
       name: "Action",
@@ -71,50 +102,43 @@ const Menu = () => {
           return (
             <>
               <ShoppingCartIcon
+                className="icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.alert("EDIT");
+                  addToCart(tableMeta);
                 }}
               >
                 Edit
               </ShoppingCartIcon>
             </>
           );
-        }
-      }
-    }
-  ];
-
-
-  const data = [
-    ["1","Tea", "Drink", "10"],
-    ["2","Coffie", "Drink", "20"],
-    ["3","Pizza", "Food", "50"],
-    ["4","Burger", "Food", "30"],
-    ["5","Soda", "Drink", "40"],
-
+        },
+      },
+    },
   ];
 
   const options = {
-    filterType: 'checkbox',
-    print	: 'false',
-    download:'false',
-    viewColumns	:'false',
+    filterType: "checkbox",
+    print: "false",
+    download: "false",
+    viewColumns: "false",
+    selectableRows: false,
   };
-
-
 
   return (
     <>
+      <ToastContainer autoClose={1000}/>
       <MUIDataTable
-      title={"Menu"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
-
+        title={"Cafe Menu"}
+        data={MenuData}
+        columns={columns}
+        options={options}
+      />
+      {isEdit && (<AddEditModal isEdit={isEdit} handleClose={handleClose} editData={editData} handleUpdate={handleUpdate}/>)}
+      {isDelete && (<DeleteModal isDelete={isDelete} handleClose={handleClose} handleDelete={handleDelete} />)}
     </>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;
+;
