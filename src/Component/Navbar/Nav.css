@@ -4,4 +4,8 @@
 .text{
     text-decoration: none;
     color:white;
+    cursor: pointer;
+}
+.text:hover{
+    color: red;
 }

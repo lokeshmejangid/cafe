@@ -4,11 +4,14 @@
 }
 
 .h-content {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 220px);
 }
 
 .green {
   color: green;
+}
+.nav a:hover{
+color: #E6C9A2;
 }
 
 .red {

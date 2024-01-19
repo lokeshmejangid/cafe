@@ -1,0 +1,27 @@
+[
+    {
+        "id":1,
+        "ItemName":"Tea",
+        "Category":"Drink"
+    },
+    {
+        "id":2,
+        "ItemName":"Coffie",
+        "Category":"Drink"
+    },
+    {
+        "id":3,
+        "ItemName":"Burgur",
+        "Category":"Food"
+    },
+    {
+        "id":4,
+        "ItemName":"Pizza",
+        "Category":"Food"
+    },
+    {
+        "id":5,
+        "ItemName":"Soda",
+        "Category":"Drink"
+    }
+]

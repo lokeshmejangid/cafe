@@ -5,7 +5,7 @@ import Nav from '../Navbar/Nav'
 const Header = () => {
   return (
     <Grid container spacing={0} className='header'>
-      <Grid item xs={9} style={{ display: 'flex', alignItems: 'center', color: 'white' }}>
+      <Grid item xs={9} style={{ display: 'flex', alignItems: 'center', color: '#E6C9A2' }}>
         <img src='CafeLogo.png' className='img'></img>
         <h2>Stepout Cafe</h2>
       </Grid>

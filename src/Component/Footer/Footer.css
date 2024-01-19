@@ -2,6 +2,18 @@
     background-color: #0E1927;
     color: white;
     justify-content: center;
-    height: 60px;
+    height: 160px;
     align-items: center;
+}
+.comman{
+    text-align: center;
+}
+.imglogo{
+    height: 40px;
+}
+.nav a{
+    color: white;
+}
+.nav{
+    display: flex;
 }

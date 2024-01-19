@@ -1,6 +1,7 @@
 import React from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import MUIDataTable from "mui-datatables";
+import MenuData from "../Utility/Menu.json"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
@@ -13,11 +14,11 @@ const Menu = () => {
     },
     {
       label: "Item Name",
-      name: "itemName",
+      name: "ItemName",
     },
     {
       label: "Category",
-      name: "category",
+      name: "Category",
     },
 
     {
@@ -79,23 +80,12 @@ const Menu = () => {
   ];
 
 
-  const data = [
-    ["1","Tea", "Drink", "10"],
-    ["2","Coffie", "Drink", "20"],
-    ["3","Pizza", "Food", "50"],
-    ["4","Burger", "Food", "30"],
-    ["5","Soda", "Drink", "40"],
-
-  ];
-
-
-
   const options = {
     filterType: 'checkbox',
-    print	: 'false',
-    download:'false',
-    viewColumns	:'false',
-    selectableRows :'none',
+    print: 'false',
+    download: 'false',
+    viewColumns: 'false',
+    selectableRows: 'none',
   };
 
 
@@ -103,11 +93,11 @@ const Menu = () => {
   return (
     <>
       <MUIDataTable
-      title={"Menu"}
-      data={data}
-      columns={columns}
-      options={options}
-    />
+        title={"Menu"}
+        data={MenuData}
+        columns={columns}
+        options={options}
+      />
 
     </>
   )
