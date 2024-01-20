@@ -2,26 +2,31 @@
     {
         "id":1,
         "ItemName":"Tea",
-        "Category":"Drink"
+        "Category":"Drink",
+        "Price":"10"
     },
     {
         "id":2,
         "ItemName":"Coffie",
-        "Category":"Drink"
+        "Category":"Drink",
+        "Price":"20"
     },
     {
         "id":3,
         "ItemName":"Burgur",
-        "Category":"Food"
+        "Category":"Food",
+        "Price":"25"
     },
     {
         "id":4,
         "ItemName":"Pizza",
-        "Category":"Food"
+        "Category":"Food",
+        "Price":"100"
     },
     {
         "id":5,
         "ItemName":"Soda",
-        "Category":"Drink"
+        "Category":"Drink",
+        "Price":"30"
     }
 ]

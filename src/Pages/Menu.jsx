@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import EditIcon from '@mui/icons-material/Edit';
 import MUIDataTable from "mui-datatables";
-import MenuData from "../Utility/Menu.json"
+import MenuData from "../Utility/MenuData.json"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import UpdateData from '../Modal/UpdateData'
+
+const [Edit, EditData] = useState(false);
+
+const UdateData = () => {
+  EditData(true);
+};
 
 const Menu = () => {
 
@@ -20,6 +27,10 @@ const Menu = () => {
       label: "Category",
       name: "Category",
     },
+    {
+      label: "Price",
+      name: "Price",
+    },
 
     {
       name: "Update",
@@ -33,8 +44,7 @@ const Menu = () => {
               <EditIcon
                 className="green"
                 onClick={(e) => {
-                  e.stopPropagation();
-                  window.alert('EDIT')
+                  UdateData
                 }
                 }
               >
