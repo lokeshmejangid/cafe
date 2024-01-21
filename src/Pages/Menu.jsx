@@ -4,15 +4,21 @@ import MUIDataTable from "mui-datatables";
 import MenuData from "../Utility/MenuData.json"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import UpdateData from '../Modal/UpdateData'
-
-const [Edit, EditData] = useState(false);
-
-const UdateData = () => {
-  EditData(true);
-};
+import AddEditModal from '../Component/Modal/AddEditModal'
 
 const Menu = () => {
+
+  const [isEdit, setEdit] = useState(false);
+  const [editData, setEditData] = useState();
+
+  const handleEdit = (data) => {
+    setEdit(true);
+    setEditData(data);
+  }
+
+  const handleClose = () => {
+    setEdit(false);
+  }
 
   const columns = [
     {
@@ -44,7 +50,8 @@ const Menu = () => {
               <EditIcon
                 className="green"
                 onClick={(e) => {
-                  UdateData
+                  e.stopPropagation();
+                  handleEdit(tableMeta.rowData)
                 }
                 }
               >
@@ -89,7 +96,6 @@ const Menu = () => {
     }
   ];
 
-
   const options = {
     filterType: 'checkbox',
     print: 'false',
@@ -97,8 +103,6 @@ const Menu = () => {
     viewColumns: 'false',
     selectableRows: 'none',
   };
-
-
 
   return (
     <>
@@ -108,7 +112,7 @@ const Menu = () => {
         columns={columns}
         options={options}
       />
-
+      {isEdit && (<AddEditModal isEdit={isEdit} handleClose={handleClose}/>)}
     </>
   )
 }
