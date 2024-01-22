@@ -16,4 +16,7 @@
 }
 .nav{
     display: flex;
+    }
+.icon{
+    text-align: center;
 }

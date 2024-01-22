@@ -9,3 +9,9 @@
 .img {
     height: 60px;
 }
+
+.h-logo {
+    display: flex;
+    color: #E6C9A2;
+    align-items: center;
+}

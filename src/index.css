@@ -31,3 +31,15 @@ color: #E6C9A2;
 .h-content .MuiTable-root{
   background-image:'1.jpg';
 }
+.modal{
+  width: 40% !important;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  background-color: white;
+  padding: 1em;
+  border-radius: 0.5em;
+  box-shadow: 24;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+}

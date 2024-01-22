@@ -5,19 +5,20 @@ import MenuData from "../Utility/MenuData.json"
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddEditModal from '../Component/Modal/AddEditModal'
+import DeleteModal from '../Component/Modal/DeleteModal'
 
 const Menu = () => {
 
   const [isEdit, setEdit] = useState(false);
-  const [editData, setEditData] = useState();
+  const [isDelete, setDelete] = useState(false);
 
-  const handleEdit = (data) => {
+  const handleEdit = () => {
     setEdit(true);
-    setEditData(data);
   }
 
   const handleClose = () => {
     setEdit(false);
+    setDelete(false);
   }
 
   const columns = [
@@ -60,9 +61,7 @@ const Menu = () => {
               <DeleteIcon
                 className="red"
                 onClick={(e) => {
-                  const { data } = this.state;
-                  data.shift();
-                  this.setState({ data });
+                  setDelete(true)
                 }}
               >
                 Delete
@@ -112,7 +111,8 @@ const Menu = () => {
         columns={columns}
         options={options}
       />
-      {isEdit && (<AddEditModal isEdit={isEdit} handleClose={handleClose}/>)}
+      {isEdit && (<AddEditModal isEdit={isEdit} handleClose={handleClose} />)}
+      {isDelete && (<DeleteModal isDelete={isDelete} handleClose={handleClose} />)}
     </>
   )
 }
