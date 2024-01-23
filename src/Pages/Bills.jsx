@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-import ReceiptIcon from '@mui/icons-material/Receipt';
+import ReceiptIcon from "@mui/icons-material/Receipt";
 import ReceiptModal from "../Component/Modal/ReceiptModal";
 import { getAllBills } from "../Services/api";
 const Bills = () => {
@@ -10,10 +10,20 @@ const Bills = () => {
 
   const handleClose = () => {
     setReceipt(false);
-  }
+  };
 
   const changeObj = (obj) => {
-    const [_id, customerName, customerNumber, paymentMethod, subTotal, tax, totalAmount, cartItems] = obj;
+    const [
+      _id,
+      customerName,
+      customerNumber,
+      paymentMethod,
+      subTotal,
+      tax,
+      totalAmount,
+      cartItems,
+      date,
+    ] = obj;
     return {
       _id,
       customerName,
@@ -22,17 +32,44 @@ const Bills = () => {
       subTotal,
       tax,
       totalAmount,
-      cartItems
+      cartItems,
+      date,
     };
   };
+
+  const log = (data) => {
+    console.log(data);
+  }
+  const padTo2Digits = (num) => {
+    return num.toString().padStart(2, "0");
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    console.log(date); // Move this line here
+
+    return (
+        [
+            padTo2Digits(date.getDate()),
+            padTo2Digits(date.getMonth() + 1),
+            date.getFullYear(),
+        ].join("-") +
+        " " +
+        [
+            padTo2Digits(date.getHours()),
+            padTo2Digits(date.getMinutes()),
+            padTo2Digits(date.getSeconds()),
+        ].join(":")
+    );
+};
 
   const columns = [
     {
       label: "id",
       name: "_id",
       options: {
-        display: false
-      }
+        display: false,
+      },
     },
     {
       label: "Customer Name",
@@ -46,8 +83,8 @@ const Bills = () => {
       label: "Payment Method",
       name: "paymentMethod",
       options: {
-        display: false
-      }
+        display: false,
+      },
     },
     {
       label: "Sub Total",
@@ -102,9 +139,26 @@ const Bills = () => {
       label: "Cart Items",
       name: "cartItems",
       options: {
-        display: false
-      }
+        display: false,
+      },
     },
+    {
+      label: "Date",
+      name: "date",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              <span>{formatDate(tableMeta.rowData[8])}</span>
+            </>
+          );
+        },
+      },
+    },
+
     {
       name: "Action",
       options: {
@@ -120,7 +174,6 @@ const Bills = () => {
                   setReceipt(true);
                   console.log(tableMeta.rowData);
                   setCustomerBill(changeObj(tableMeta.rowData));
-                  
                 }}
               />
             </>
@@ -136,14 +189,22 @@ const Bills = () => {
     download: "false",
     viewColumns: "false",
     selectableRows: false,
-    filter:false
+    filter: false,
+  };
+
+  const customSort = (data, colIndex, order) => {
+    return data.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      return order === "desc" ? dateB - dateA : dateA - dateB;
+    });
   };
 
   const getBillsData = async () => {
     try {
       const result = await getAllBills();
-      console.log(result);
-      setBills(result);
+      setBills(customSort(result, "date", "desc"));
     } catch (error) {
       console.log(error);
     }
@@ -162,9 +223,15 @@ const Bills = () => {
         columns={columns}
         options={options}
       />
-      {isReceipt && (<ReceiptModal isReceipt={isReceipt} bill={customerBill} handleClose={handleClose}/>)}
+      {isReceipt && (
+        <ReceiptModal
+          isReceipt={isReceipt}
+          bill={customerBill}
+          handleClose={handleClose}
+        />
+      )}
     </>
   );
 };
 
-export default Bills
+export default Bills;

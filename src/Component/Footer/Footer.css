@@ -1,0 +1,20 @@
+.footer {
+  height: 60px;
+  background: #0e1927;
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 0em 1em;
+}
+.footer .copyright {
+    color: #e6c9a2
+}
+
+.footer .links{
+    display: flex;
+    gap: 0.5em;
+    justify-content: end;
+}
+.footer .links a{
+    color: white
+}

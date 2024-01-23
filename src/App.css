@@ -15,15 +15,6 @@
 .subTotal button {
   margin-top: 1em;
 }
-.logo {
-  display: flex;
-  justify-content: center;
-}
-
-.logo img {
-  height: 70px;
-  width: 70px;
-}
 .companyName {
   font-weight: 900;
   display: flex;
@@ -39,7 +30,7 @@
   margin: 1em 0em;
 }
 
-.modal table td {
+.modal table tr, .modal table td {
   text-align: center;
 }
 .invoice-bill {
@@ -58,10 +49,30 @@
 }
 .table tr td {
   padding: 0.2em;
+  text-align: center;
 }
 .table tbody .table-row {
   border-bottom: 1px solid #eee;
 }
 .table .table-cal {
   background: #eee;
+}
+.lbl-red {
+  background: red;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+}
+.lbl-yellow {
+  background: yellow;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: black;
+}
+
+.lbl-green {
+  background: green;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
 }

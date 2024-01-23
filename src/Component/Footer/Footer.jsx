@@ -1,8 +1,19 @@
 import React from 'react'
+import './Footer.css'
+import { Grid } from '@mui/material'
+import { NavLink } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <Grid container spacing={0} className='footer'>
+      <Grid item xs={6} className='copyright'>Copyright © 2024 Coffee Shop. All Rights Reserved.</Grid>
+      <Grid item xs={6} className='links'>
+        <NavLink to=''>PRIVACY</NavLink>
+        <NavLink to=''>TERM OF USE</NavLink>
+        <NavLink to=''>POLICY</NavLink>
+      </Grid>
+    </Grid>
+
   )
 }
 

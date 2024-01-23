@@ -5,9 +5,9 @@
 .nav a{
     text-decoration: none;
     padding: 0 0.5em;
-    color: black;
+    color: white;
 }
 .nav a.active {
-    color: red !important;
+    color: #e6c9a2 !important;
     text-decoration: underline !important;
 }

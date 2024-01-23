@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-import CustomerData from "../Utility/Customer.json";
+import { getAllBills } from "../Services/api";
 
 const Customer = () => {
-  const [isDelete, setDelete] = useState(false);
+  const [bills, setBills] = useState();
   const columns = [
     {
       label: "S. No",
-      name: "id",
+      name: "_id",
+      options: {
+        filter: false,
+        customBodyRender: (value, tableMeta, update) => {
+          let rowIndex = Number(tableMeta.rowIndex) + 1;
+          return <span>{rowIndex}</span>;
+        },
+      },
     },
     {
       label: "Customer Name",
-      name: "custName",
+      name: "customerName",
     },
     {
       label: "Contact Number",
-      name: "contNo",
-    }
+      name: "customerNumber",
+    },
   ];
 
   const options = {
@@ -25,14 +32,26 @@ const Customer = () => {
     download: "false",
     viewColumns: "false",
     selectableRows: false,
-    filter: false
+    filter: false,
   };
+
+  const getBillsData = async () => {
+    try {
+      const result = await getAllBills();
+      setBills(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getBillsData();
+  }, []);
 
   return (
     <>
       <MUIDataTable
         title={"Customer Details"}
-        data={CustomerData}
+        data={bills}
         columns={columns}
         options={options}
       />
@@ -40,4 +59,4 @@ const Customer = () => {
   );
 };
 
-export default Customer
+export default Customer;

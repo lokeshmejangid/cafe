@@ -77,6 +77,11 @@ const Cart = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
+  const handleLblColor = (data) => {
+    if(data === 'food') return <span className="lbl-green">{data}</span>
+    return <span className="lbl-yellow">{data}</span>
+  }
+
   const columns = [
     {
       label: "ID",
@@ -92,6 +97,11 @@ const Cart = () => {
     {
       label: "Category",
       name: "category",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return handleLblColor(tableMeta.rowData[2]);
+        },
+      },
     },
     {
       label: "Price",
@@ -196,7 +206,8 @@ const Cart = () => {
   };
 
   const handleBills = (data) => {
-    const payload = { ...data, cartItems: cartItems };
+    //const payload = { ...data, cartItems: cartItems, date: formatDate(new Date()) };
+    const payload = { ...data, cartItems: cartItems, date: new Date() };
     addBill(payload);
   };
   return (

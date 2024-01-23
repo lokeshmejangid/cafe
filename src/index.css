@@ -6,7 +6,7 @@ a {
   text-decoration: none;
 }
 .h-content {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 180px);
 }
 .green {
   color: green;
@@ -14,10 +14,16 @@ a {
 .red {
   color: red;
 }
-
 .h-content .MuiTable-root thead tr th div {
   font-weight: bold;
 }
+.h-content .tss-1cdcmys-MUIDataTable-responsiveBase{
+  max-height: 65vh !important;
+}
+/* .MuiList-root .MuiButtonBase-root{
+  display: flex !important;
+  width: fit-content !important;
+} */
 .h-content .MuiTable-root .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon,
 .h-content .MuiTable-root thead tr th span,
 .h-content .MuiTable-root thead tr th {
@@ -38,6 +44,10 @@ a {
   border-radius: 0.5em;
   box-shadow: 24;
   padding: 1em;
+}
+.modal .logo {
+  display: flex;
+  justify-content: center;
 }
 .modal .title {
   font-size: 1.2em;

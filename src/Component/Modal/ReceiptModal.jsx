@@ -31,9 +31,9 @@ const ReceiptModal = (props) => {
           justifyContent={"center"}
           ref={componentRef}
         >
-          <Grid item xs={12} className="logo">
-            <img src="./logo192.png" alt="logo" />
-          </Grid>
+          <div className="logo">
+            <img src="./assets/images/logo.png" alt="logo" height='100px' width= '100px'/>
+          </div>
           <Grid item xs={12} className="companyName">
             <span>Coffea</span>
           </Grid>

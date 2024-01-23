@@ -6,15 +6,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddEditModal from "../Component/Modal/AddEditModal";
 import DeleteModal from "../Component/Modal/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/Actions";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
-import { Tooltip, IconButton } from "@material-ui/core";
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 const Menu = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isEdit, setEdit] = useState(false);
@@ -60,7 +59,10 @@ const Menu = () => {
     dispatch(addToCart({ ...changeObj(tableMeta.rowData), quantity: 1 }));
     // Update localStorage
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    const updatedCartItems = [...storedCartItems, { ...changeObj(tableMeta.rowData), quantity: 1 }];
+    const updatedCartItems = [
+      ...storedCartItems,
+      { ...changeObj(tableMeta.rowData), quantity: 1 },
+    ];
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
     toast.success("Item Added in cart", { position: "top-center" });
@@ -125,7 +127,7 @@ const Menu = () => {
     return (
       <Tooltip disableFocusListener title="Add User">
         <IconButton onClick={handleAddBtn}>
-          <ControlPointIcon />
+          <ControlPointIcon onClick={handleAddBtn}/>
         </IconButton>
       </Tooltip>
     );
@@ -135,6 +137,11 @@ const Menu = () => {
     setDelete(true);
     setDeleteData(data);
   };
+  const handleLblColor = (data) => {
+    if (data === "food") return <span className="lbl-green">{data}</span>;
+    return <span className="lbl-yellow">{data}</span>;
+  };
+
   const columns = [
     {
       label: "ID",
@@ -150,20 +157,18 @@ const Menu = () => {
     {
       label: "Category",
       name: "category",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return handleLblColor(tableMeta.rowData[2]);
+        },
+      },
     },
     {
       label: "Price",
       name: "price",
       options: {
-        filter: false,
-        sort: false,
-        empty: true,
         customBodyRender: (value, tableMeta, updateValue) => {
-          return (
-            <>
-              <span>₹{tableMeta.rowData[3]} /-</span>
-            </>
-          );
+          return <span>₹{tableMeta.rowData[3]} /-</span>;
         },
       },
     },
