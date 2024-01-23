@@ -18,19 +18,19 @@
 .h-content .MuiTable-root thead tr th div {
   font-weight: bold;
 }
+
 .h-content .MuiPaper-root {
   box-shadow: none;
 }
+
 .h-content .MuiTable-root .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon,
 .h-content .MuiTable-root thead tr th span,
 .h-content .MuiTable-root thead tr th {
   text-align: center !important;
   justify-content: center;
 }
-.h-content .MuiPaper-root{
-  /* background-image:url('1.jpg'); */
-}
-.modal{
+
+.modal {
   width: 40% !important;
   top: 50%;
   left: 50%;

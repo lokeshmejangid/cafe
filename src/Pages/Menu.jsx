@@ -102,6 +102,7 @@ const Menu = () => {
     download: 'false',
     viewColumns: 'false',
     selectableRows: 'none',
+    filter: 'false'
   };
 
   return (
