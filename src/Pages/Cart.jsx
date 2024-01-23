@@ -4,13 +4,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCart, deleteFromCart } from "../Redux/Actions/index";
+import { updateCart, deleteFromCart, clearCart } from "../Redux/Actions/index";
 import { ToastContainer, toast } from "react-toastify";
 import DeleteModal from "../Component/Modal/DeleteModal";
 import InvoiceModal from "../Component/Modal/InvoiceModal";
 import { Button } from "@mui/material";
 import { addCustomerBill } from "../Services/api";
-
+import { addToCart } from "../Redux/Actions";
 const Cart = () => {
   const dispatch = useDispatch();
 
@@ -19,14 +19,9 @@ const Cart = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [invoice, setInvoice] = useState(false);
 
-  let cartItems;
-  let cartData = useSelector((state) => state.addToCartItems);
-  
-  if (cartData.cartItems.length > 0) cartItems = cartData.cartItems
-  else cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  const { cartItems, loading } = useSelector((state) => state.addToCartItems);
 
   console.log(cartItems);
-
   const handleClose = () => {
     setDelete(false);
     setInvoice(false);
@@ -37,6 +32,12 @@ const Cart = () => {
     toast.error("Item Deleted", {
       position: "top-center",
     });
+    // Update localStorage
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const updatedCartItems = storedCartItems.filter(
+      (item) => item.id !== deleteItem.id
+    );
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
   const changeObj = (obj) => {
     const [id, itemName, category, price, quantity] = obj;
@@ -53,11 +54,27 @@ const Cart = () => {
     dispatch(
       updateCart({ ...changeObj(data), quantity: changeObj(data).quantity + 1 })
     );
+    // Update localStorage
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const updatedCartItems = storedCartItems.map((item) =>
+      item.id === changeObj(data).id
+        ? { ...item, quantity: changeObj(data).quantity + 1 }
+        : item
+    );
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
   const handleDecrement = (data) => {
     dispatch(
       updateCart({ ...changeObj(data), quantity: changeObj(data).quantity - 1 })
     );
+    // Update localStorage
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const updatedCartItems = storedCartItems.map((item) =>
+      item.id === changeObj(data).id
+        ? { ...item, quantity: changeObj(data).quantity - 1 }
+        : item
+    );
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
 
   const columns = [
@@ -149,16 +166,16 @@ const Cart = () => {
     download: "false",
     viewColumns: "false",
     selectableRows: false,
-    filter:false
+    filter: false,
   };
 
   useEffect(() => {
     let temp = 0;
-    cartData.cartItems.forEach((item) => {
+    cartItems.forEach((item) => {
       temp = temp + item.price * item.quantity;
       setSubTotal(temp);
     });
-  }, [cartData.cartItems]);
+  }, [cartItems]);
 
   const handleInvoice = () => {
     setInvoice(true);
@@ -167,15 +184,19 @@ const Cart = () => {
   const addBill = async (payload) => {
     try {
       const result = await addCustomerBill(payload);
-      toast.success(result, { position: "top-center" });
       setInvoice(false);
+      localStorage.removeItem("cartItems");
+      dispatch(clearCart());
+      setSubTotal(0);
+      toast.success(result, { position: "top-center" });
+
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleBills = (data) => {
-    const payload = { ...data, cartItems: cartData.cartItems };
+    const payload = { ...data, cartItems: cartItems };
     addBill(payload);
   };
   return (
@@ -183,7 +204,7 @@ const Cart = () => {
       <ToastContainer autoClose={1000} />
       <MUIDataTable
         title={"Cart"}
-        data={cartData.cartItems}
+        data={cartItems}
         columns={columns}
         options={options}
       />

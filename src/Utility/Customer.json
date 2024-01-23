@@ -1,17 +1,7 @@
 [
     {
         "id": 1,
-        "custName": "Lokesh",
+        "custName": "Lokesh Jangid",
         "contNo": "9784477117"
-    },
-    {
-        "id": 2,
-        "custName": "Gajanand",
-        "contNo": "9784477778"
-    },
-    {
-        "id": 3,
-        "custName": "Mohan",
-        "contNo": "9784477337"
     }
 ]

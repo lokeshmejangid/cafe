@@ -1,7 +1,6 @@
-
 const initialState = {
   loading: true,
-  cartItems: [],
+  cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
 };
 
 const addToCartItems = (state = initialState, action) => {
@@ -28,6 +27,13 @@ const addToCartItems = (state = initialState, action) => {
         cartItems: state.cartItems.filter(
           (item) => item.id !== action.payload.id
         ),
+      };
+      break;
+
+    case "CLEAR_CART":
+      return {
+        ...state,
+        cartItems: [],
       };
       break;
     default:

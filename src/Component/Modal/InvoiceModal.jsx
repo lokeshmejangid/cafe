@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField, Button, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 
 const AddEditModal = (props) => {
   const { invoice, subTotal, handleClose, handleBills } = props;
@@ -8,24 +16,26 @@ const AddEditModal = (props) => {
   const [txtCustomerName, setCustomerName] = useState("");
   const [txtContNumber, setCustomerNumber] = useState("");
   const [txtPaymentMethod, setPaymentMethod] = useState("");
+  const [isPwdValid, setPwdValid] = useState(true);
+  const [isPwdBlur, setPwdBlur] = useState(false);
 
   const [isBtnVisible, setBtnVisible] = useState(false);
 
   let tax = (subTotal * 0.1).toFixed(2);
-  let total = parseFloat(subTotal) + parseFloat(tax); 
+  let total = parseFloat(subTotal) + parseFloat(tax);
 
   useEffect(() => {}, []);
 
   const handleInvoice = () => {
     handleClose();
     const data = {
-      "customerName": txtCustomerName,
-      "customerNumber": txtContNumber,
-      "paymentMethod": txtPaymentMethod,
-      "subTotal": subTotal,
-      "tax": tax,
-      "totalAmount": total
-    }
+      customerName: txtCustomerName,
+      customerNumber: txtContNumber,
+      paymentMethod: txtPaymentMethod,
+      subTotal: subTotal,
+      tax: tax,
+      totalAmount: total,
+    };
     handleBills(data);
   };
 
@@ -37,12 +47,11 @@ const AddEditModal = (props) => {
     if (
       txtCustomerName.length > 0 &&
       txtContNumber.length > 0 &&
-      txtPaymentMethod.length > 0
+      (txtPaymentMethod.length > 0 && isPwdValid)
     )
       setBtnVisible(true);
     else setBtnVisible(false);
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +59,8 @@ const AddEditModal = (props) => {
     if (name === "txtCustomerName") {
       setCustomerName(value);
     } else if (name === "txtContNumber") {
+      const isValidPhoneNumber = /^\d{10}$/u.test(value);
+      setPwdValid(isValidPhoneNumber);
       setCustomerNumber(value);
     } else if (name === "txtPaymentMethod") {
       setPaymentMethod(value);
@@ -57,6 +68,10 @@ const AddEditModal = (props) => {
       // Handle other cases
     }
     handleBtnVisibility();
+  };
+
+  const handlePwd = () => {
+    setPwdBlur(true);
   };
 
   return (
@@ -89,7 +104,13 @@ const AddEditModal = (props) => {
             fullWidth
             sx={{ mt: 1 }}
             value={txtContNumber}
-            error={txtContNumber.length > 10 ? '': 'please fill values'}
+            onBlur={handlePwd}
+            error={isPwdBlur && (!isPwdValid || txtContNumber.trim() == "")}
+            helperText={
+              isPwdBlur &&
+              ((!isPwdValid && "Invalid Phone Number") ||
+                (txtContNumber.trim() == "" && "Phone number cannot be empty"))
+            }
             onChange={handleChange}
           />
           <FormControl fullWidth>
@@ -103,17 +124,23 @@ const AddEditModal = (props) => {
               sx={{ mt: 1 }}
               onChange={handleChange}
             >
-              <MenuItem value='Cash'>Cash</MenuItem>
-              <MenuItem value='Phone Pe'>Phone Pe</MenuItem>
-              <MenuItem value='Google Pe'>Google Pe</MenuItem>
-              <MenuItem value='Paytm'>Paytm</MenuItem>
+              <MenuItem value="Cash">Cash</MenuItem>
+              <MenuItem value="Phone Pe">Phone Pe</MenuItem>
+              <MenuItem value="Google Pe">Google Pe</MenuItem>
+              <MenuItem value="Paytm">Paytm</MenuItem>
             </Select>
           </FormControl>
 
           <div className="subTotal">
-            <h3>Sub Total: ₹ <b>{subTotal}</b>/-</h3>
-            <h3>Tax: ₹ <b>{tax}</b>/-</h3>
-            <h2>Total: ₹ <b>{total}</b>/-</h2>
+            <h3>
+              Sub Total: ₹ <b>{subTotal}</b>/-
+            </h3>
+            <h3>
+              Tax: ₹ <b>{tax}</b>/-
+            </h3>
+            <h2>
+              Total: ₹ <b>{total}</b>/-
+            </h2>
           </div>
         </Grid>
         <Grid
@@ -124,7 +151,11 @@ const AddEditModal = (props) => {
           justifyContent={"center"}
           mt={2}
         >
-          <Button variant="contained" onClick={handleInvoice} disabled={isBtnVisible ? false : true}>
+          <Button
+            variant="contained"
+            onClick={handleInvoice}
+            disabled={isBtnVisible ? false : true}
+          >
             Generate Invoice
           </Button>
         </Grid>

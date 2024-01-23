@@ -25,6 +25,7 @@ const Customer = () => {
     download: "false",
     viewColumns: "false",
     selectableRows: false,
+    filter: false
   };
 
   return (

@@ -95,8 +95,8 @@ const AddEditModal = (props) => {
               sx={{ mt: 1 }}
               onChange={handleChange}
             >
-              <MenuItem value='drinks'>Drinks</MenuItem>
-              <MenuItem value='food'>Food</MenuItem>
+              <MenuItem value='Drinks'>Drinks</MenuItem>
+              <MenuItem value='Food'>Food</MenuItem>
             </Select>
           </FormControl>
 

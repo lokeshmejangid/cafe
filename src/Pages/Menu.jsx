@@ -11,10 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Actions";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
-import {
-  Tooltip,
-  IconButton,
-} from "@material-ui/core";
+import { Tooltip, IconButton } from "@material-ui/core";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -58,9 +55,14 @@ const Menu = () => {
       price,
     };
   };
+
   const handleAddToCart = (tableMeta, value, updateValue) => {
-    localStorage.setItem("cartItems", JSON.stringify({ ...changeObj(tableMeta.rowData), quantity: 1 }));
     dispatch(addToCart({ ...changeObj(tableMeta.rowData), quantity: 1 }));
+    // Update localStorage
+    const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const updatedCartItems = [...storedCartItems, { ...changeObj(tableMeta.rowData), quantity: 1 }];
+    localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
     toast.success("Item Added in cart", { position: "top-center" });
   };
 
@@ -83,7 +85,9 @@ const Menu = () => {
         setEdit(false);
         getMenuData();
       } else {
-        toast.error("Menu not updated please connect with dev", {position: "top-center"});
+        toast.error("Menu not updated please connect with dev", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -136,8 +140,8 @@ const Menu = () => {
       label: "ID",
       name: "_id",
       options: {
-        display: false
-      }
+        display: false,
+      },
     },
     {
       label: "Item Name",
@@ -233,12 +237,12 @@ const Menu = () => {
     <>
       <ToastContainer autoClose={1000} />
       <MUIDataTable
-          title={"Cafe Menu"}
-          data={menuData}
-          columns={columns}
-          handleUpdate
-          options={options}
-        />
+        title={"Cafe Menu"}
+        data={menuData}
+        columns={columns}
+        handleUpdate
+        options={options}
+      />
       {isEdit && (
         <AddEditModal
           isEdit={isEdit}

@@ -1,16 +1,3 @@
-export const incNumber = (payload) => {
-    return{
-        type: "INCREMENT",
-        payload: payload
-    }
-}
-export const decNumber = (payload) => {
-    return{
-        type: "DECREMENT",
-        payload: payload
-    }
-}
-
 export const addToCart = (payload) => {
     return{
         type: "ADD_TO_CART",
@@ -29,5 +16,11 @@ export const deleteFromCart = (payload) => {
     return{
         type: "DELETE_FROM_CART",
         payload: payload
+    }
+}
+
+export const clearCart = () => {
+    return{
+        type: "CLEAR_CART",
     }
 }
