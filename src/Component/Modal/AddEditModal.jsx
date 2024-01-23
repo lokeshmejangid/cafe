@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField, Button } from "@mui/material";
-import { TodayOutlined } from "@mui/icons-material";
+import { Grid, TextField, Button, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 const AddEditModal = (props) => {
   const { isEdit, handleClose, editData, handleUpdate } = props;
@@ -10,15 +9,40 @@ const AddEditModal = (props) => {
   const [txtItemCategory, setItemCategory] = useState("");
   const [txtItemPrice, setItemPrice] = useState("");
 
+  const [isBtnVisible, setBtnVisible] = useState(false);
+
   useEffect(() => {
-    setItemName(editData[1]);
-    setItemCategory(editData[2]);
-    setItemPrice(editData[3]);
-  }, []);
+    if (editData !== null && editData !== undefined) {
+      setItemName(editData[1]);
+      setItemCategory(editData[2]);
+      setItemPrice(editData[3]);
+    }
+  }, [editData]);
+
+  useEffect(() => {
+    handleBtnVisibility();
+  }, [txtItemName, txtItemCategory, txtItemPrice]);
+
+
 
   const handleSave = () => {
     handleClose();
-    handleUpdate();
+    const updatedData = {
+      itemName: txtItemName,
+      price: txtItemPrice,
+      category: txtItemCategory,
+    };
+    handleUpdate(updatedData);
+  };
+
+  const handleBtnVisibility = () => {
+    if (
+      txtItemName.length > 0 &&
+      txtItemCategory.length > 0 &&
+      txtItemPrice.length > 0
+    )
+      setBtnVisible(true);
+    else setBtnVisible(false);
   };
 
   const handleChange = (e) => {
@@ -31,8 +55,10 @@ const AddEditModal = (props) => {
     } else if (name === "txtItemPrice") {
       setItemPrice(value);
     } else {
-      // Handle other cases
+      // Handle other casesll
     }
+
+    handleBtnVisibility();
   };
 
   return (
@@ -43,6 +69,11 @@ const AddEditModal = (props) => {
       aria-describedby="modal-modal-description"
     >
       <Grid container spacing={0} className="modal">
+        <Grid item xs={12}>
+          <div className="title">
+            {editData !== undefined ? "Edit Menu" : "Add Menu"}
+          </div>
+        </Grid>
         <Grid item xs={12} justifyContent={"center"}>
           <TextField
             id="txtItemName"
@@ -53,21 +84,28 @@ const AddEditModal = (props) => {
             value={txtItemName}
             onChange={handleChange}
           />
-          <TextField
-            id="txtItemCategory"
-            name="txtItemCategory"
-            label="Item Category"
-            variant="outlined"
-            fullWidth
-            sx={{ mt: 1 }}
-            value={txtItemCategory}
-            onChange={handleChange}
-          />
+          <FormControl fullWidth>
+            <InputLabel id="lblCategory">Category</InputLabel>
+            <Select
+              labelId="lblCategory"
+              id="txtItemCategory"
+              value={txtItemCategory}
+              label="Category"
+              name="txtItemCategory"
+              sx={{ mt: 1 }}
+              onChange={handleChange}
+            >
+              <MenuItem value='drinks'>Drinks</MenuItem>
+              <MenuItem value='food'>Food</MenuItem>
+            </Select>
+          </FormControl>
+
           <TextField
             id="txtItemPrice"
             name="txtItemPrice"
             label="Item Price"
             variant="outlined"
+            type="number"
             fullWidth
             sx={{ mt: 1 }}
             value={txtItemPrice}
@@ -82,7 +120,11 @@ const AddEditModal = (props) => {
           justifyContent={"center"}
           mt={2}
         >
-          <Button variant="contained" onClick={handleSave}>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            disabled={isBtnVisible ? false : true}
+          >
             Save
           </Button>
         </Grid>

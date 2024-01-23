@@ -20,15 +20,15 @@ const DeleteModal = (props) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Grid container spacing={0} className="modal">
-        <p className="content">Are you sure, you want delete ?</p>
+      <Grid container spacing={0} className="modal" justifyContent={"center"}>
+        <p className="del-content">Are you sure, you want delete ?</p>
         <Grid
           item
           xs={12}
           container
           spacing={0}
           justifyContent={"center"}
-          mt={2}
+          mt={5}
         >
           <Button variant="contained" onClick={handleDeleteAndClose}>
             Delete

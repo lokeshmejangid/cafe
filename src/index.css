@@ -39,6 +39,16 @@ a {
   box-shadow: 24;
   padding: 1em;
 }
+.modal .title {
+  font-size: 1.2em;
+  font-weight: 900;
+  margin: 1em 0em;
+}
 .btnSave{
   text-align: center;
+}
+.h-line{
+  width: 100%;
+  border: 0.5px solid #2d3743;
+  margin-top: 1em;
 }
