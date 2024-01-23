@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddEditModal from '../Component/Modal/AddEditModal'
 import DeleteModal from '../Component/Modal/DeleteModal'
+import { ToastContainer, toast } from 'react-toastify';
 
 const Menu = () => {
 
@@ -19,6 +20,9 @@ const Menu = () => {
   const handleClose = () => {
     setEdit(false);
     setDelete(false);
+  }
+  const addToCart = () => {
+    toast('Item Added in Cart');
   }
 
   const columns = [
@@ -81,10 +85,7 @@ const Menu = () => {
           return (
             <>
               <ShoppingCartIcon
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.alert("EDIT");
-                }}
+                onClick={(e) => {addToCart()}}
               >
                 Edit
               </ShoppingCartIcon>
@@ -105,8 +106,9 @@ const Menu = () => {
 
   return (
     <>
+    <ToastContainer />
       <MUIDataTable
-        title={"Menu"}
+        title={"Cafe Menu"}
         data={MenuData}
         columns={columns}
         options={options}

@@ -4,38 +4,40 @@ import { Grid, List, ListItem } from '@mui/material'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import AttachEmailIcon from '@mui/icons-material/AttachEmail';
 
 const Footer = () => {
   return (
-    <Grid container spacing={0} className='footer'>
-      <Grid item xs={4} className='icon'>
-        <div><img src='Cafelogo.png' className='imglogo'></img></div>
-        <div>RASTAURANT . BAR . COFFIE . BISTRO</div>
-      </Grid>
-      <Grid item xs={8} className='icon'>
-        <FacebookIcon></FacebookIcon>
-        <InstagramIcon></InstagramIcon>
-        <TwitterIcon></TwitterIcon>
-      </Grid>
+    <Grid container spacing={0} className='bgImg'>
+      <Grid item xs={12} container spacing={0} className='footer'>
+        <Grid item xs={4} className='icon'>
+          <div><h1>STEPOUT</h1></div>
+          <div>RASTAURANT . BAR . COFFIE . BISTRO</div>
+          <div>Our buzzy food-hall style concept is inspired by international dining styles, especially in Asia. Explore the following fast-action food</div>
+        </Grid>
 
-      <hr style={{ color: "white", width: "100%" }} />
+        <Grid item xs={4} className='icon' sx={{ display: 'flex', justifyContent: 'center' }}>
+          Copyright © 2023 Themesflat. All Rights Reserved.
+        </Grid>
 
-      <Grid item xs={4} className='icon'>
-        Copyright © 2023 Themesflat. All Rights Reserved.
-      </Grid>
-      <Grid item xs={3}></Grid>
-      <Grid item xs={5}>
-        <List className='nav'>
-          <ListItem>
+        {/* <span className='hr' /> */}
+
+        <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+          <div>
+            <FacebookIcon className='circle' />
+            <InstagramIcon className='circle' />
+            <TwitterIcon className='circle' />
+            <AttachEmailIcon className='circle' />
+          </div>
+
+          <List className='nav'>
             <a href="/">PRIVACY</a>
-          </ListItem>
-          <ListItem>
             <a href="/cart">TERM OF USE</a>
-          </ListItem>
-          <ListItem>
             <a href="bills/">POLICY</a>
-          </ListItem>
-        </List>
+          </List>
+
+
+        </Grid>
       </Grid>
     </Grid>
   )

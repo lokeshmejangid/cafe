@@ -1,11 +1,24 @@
-.nav{
+.nav {
     display: flex;
+    justify-content: end;
 }
-.text{
+
+.nav a:hover {
+    color: #E6C9A2;
+}
+
+.nav a{
     text-decoration: none;
-    color:white;
-    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0em 0.5em;
 }
-.text:hover{
-    color: red;
+
+.nav a.active{
+    border-bottom: 1px solid #E6C9A2;
+}
+
+.header .nav .css-1p823my-MuiListItem-root{
+    padding: 0em !important;
+    width: auto;
 }

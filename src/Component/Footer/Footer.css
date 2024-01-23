@@ -1,22 +1,43 @@
 .footer {
     background-color: #0E1927;
     color: white;
-    justify-content: center;
-    height: 160px;
+    height: 180px;
     align-items: center;
+    padding: 0em 1em;
+    opacity: 0.7;
 }
-.comman{
-    text-align: center;
-}
-.imglogo{
+
+.imglogo {
     height: 40px;
 }
-.nav a{
-    color: white;
+
+.bgImg {
+    background-image:url('../../../public/bg-header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
-.nav{
+
+.nav a {
+    color: white;    
+}
+
+.nav {
     display: flex;
-    }
-.icon{
-    text-align: center;
+}
+
+.hr {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.129);
+}
+
+.footer .circle {
+    border: solid 1px white;
+    padding: 0.5em;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0em 5px;
+}
+.icon h1{
+    color: #E6C9A2;
+    align-items: center;
 }
