@@ -1,21 +1,22 @@
 import { List, ListItem } from '@mui/material'
 import React from 'react'
 import './Nav.css'
+import { NavLink } from 'react-router-dom'
 
 const Nav = () => {
   return (
     <List className='nav'>
       <ListItem>
-        <a href="/">Menu</a>
+        <NavLink to='/'>Menu</NavLink>
       </ListItem>
       <ListItem>
-        <a href="/cart">Cart</a>
+      <NavLink to='/cart'>Cart</NavLink>
       </ListItem>
       <ListItem>
-        <a href="bills/">Bills</a>
+      <NavLink to='/bills'>Bills</NavLink>
       </ListItem>
       <ListItem>
-        <a href="/customer">Customer</a>
+      <NavLink to='/coustmer'>Coustmer</NavLink>
       </ListItem>
     </List>
   )
