@@ -2,6 +2,8 @@ import React from 'react'
 import MUIDataTable from "mui-datatables";
 import MenuData from "../Utility/MenuData.json"
 import DeleteIcon from '@mui/icons-material/Delete';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const Cart = () => {
 
@@ -21,6 +23,25 @@ const Cart = () => {
     {
       label: "Quantity",
       name: "Quantity",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+              <ControlPointIcon
+                onClick={(e) => { }}
+              >
+              </ControlPointIcon>
+              <RemoveCircleOutlineIcon
+                onClick={(e) => { }}
+              >
+              </RemoveCircleOutlineIcon>
+            </>
+          );
+        }
+      }
     },
     {
       name: "Action",

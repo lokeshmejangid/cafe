@@ -7,14 +7,24 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddEditModal from '../Component/Modal/AddEditModal'
 import DeleteModal from '../Component/Modal/DeleteModal'
 import { ToastContainer, toast } from 'react-toastify';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import Tooltip from '@mui/material/Tooltip';
+import { IconButton } from '@mui/material';
 
 const Menu = () => {
 
   const [isEdit, setEdit] = useState(false);
   const [isDelete, setDelete] = useState(false);
+  const [editData, setEditData] = useState();
+  const [error, setError] = useState('');
 
-  const handleEdit = () => {
+  const handleEdit = (data) => {
     setEdit(true);
+    setEditData(data);
+  }
+
+  const Validation = () => {
+    setError(true);
   }
 
   const handleClose = () => {
@@ -42,7 +52,6 @@ const Menu = () => {
       label: "Price",
       name: "Price",
     },
-
     {
       name: "Update",
       options: {
@@ -60,7 +69,6 @@ const Menu = () => {
                 }
                 }
               >
-                Edit
               </EditIcon >
               <DeleteIcon
                 className="red"
@@ -68,7 +76,6 @@ const Menu = () => {
                   setDelete(true)
                 }}
               >
-                Delete
               </DeleteIcon>
             </>
           );
@@ -85,9 +92,8 @@ const Menu = () => {
           return (
             <>
               <ShoppingCartIcon
-                onClick={(e) => {addToCart()}}
+                onClick={(e) => { addToCart() }}
               >
-                Edit
               </ShoppingCartIcon>
             </>
           );
@@ -96,25 +102,37 @@ const Menu = () => {
     }
   ];
 
+  const addButton = () => {
+    return (
+      <Tooltip title='Add New Menu'>
+        <IconButton onClick={handleEdit}>
+          <ControlPointIcon />
+        </IconButton>
+      </Tooltip>
+
+    )
+  }
+
   const options = {
     filterType: 'checkbox',
     print: 'false',
     download: 'false',
     viewColumns: 'false',
     selectableRows: 'none',
-    filter: 'false'
+    filter: 'false',
+    customToolbar: addButton
   };
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <MUIDataTable
         title={"Cafe Menu"}
         data={MenuData}
         columns={columns}
         options={options}
       />
-      {isEdit && (<AddEditModal isEdit={isEdit} handleClose={handleClose} />)}
+      {isEdit && (<AddEditModal isEdit={isEdit} editData={editData} handleClose={handleClose} />)}
       {isDelete && (<DeleteModal isDelete={isDelete} handleClose={handleClose} />)}
     </>
   )

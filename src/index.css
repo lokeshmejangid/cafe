@@ -42,3 +42,12 @@
   transform: translate(-50%, -50%);
   justify-content: center;
 }
+.modal .addModal{
+  margin: 0.5em 0em;
+}
+.modal .btnAddModal{
+  margin-top: 1em;
+}
+.modal .addMenu{
+margin: 1em 1em; 
+}
