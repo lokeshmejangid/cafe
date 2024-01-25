@@ -8,29 +8,38 @@ import { FormControl } from '@mui/material';
 import { InputLabel } from '@mui/material';
 
 const AddEditModal = (props) => {
-  const [txtItemCategory, setItemCategory] = useState('');
-  const [txtItemName, setItemName] = useState('');
-  const [txtPrice, setPrice] = useState('');
+  const [txtItemCategory, setItemCategory] = useState("");
+  const [txtItemName, setItemName] = useState("");
+  const [txtPrice, setPrice] = useState("");
   const [isBtnVisible, setBtnVisible] = useState(false);
 
   const { isEdit, editData, handleClose } = props;
 
-  const SaveItem = () => {
-    toast('Item Save');
-  }
-
   useEffect(() => {
-   
-  })
-
-  const handleVisibility = () => {
-    if (txtItemName.length > 0 && txtItemCategory.length > 0 && txtPrice.length > 0) setBtnVisible(true)
-    else setBtnVisible(false)
-  }
+   if(editData !== null && editData !== undefined){
+    setItemName(editData[1])
+    setItemCategory(editData[2])
+    setPrice(editData[3])
+   }
+  }, [editData]);
 
   useEffect(() => {
     handleVisibility();
-  }, [txtItemName, txtItemCategory, txtPrice])
+  }, [txtItemName, txtItemCategory, txtPrice]);
+
+  const handleVisibility = () => {
+    if (
+      txtItemName !== undefined &&
+      txtItemCategory !== undefined &&
+      txtPrice !== undefined &&
+      txtItemName.length > 0 &&
+      txtItemCategory.length > 0 &&
+      txtPrice.length > 0
+    ) {
+      setBtnVisible(true)
+    } 
+    else setBtnVisible(false)
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +55,16 @@ const AddEditModal = (props) => {
       //todo
     }
     handleVisibility();
+  }
+  
+  const SaveItem = () => {
+    const payload = {
+      "menuItem": txtItemName,
+      "menuCategory": txtItemCategory,
+      "price": txtPrice
+    }
+
+    console.log(payload);
   }
 
   return (
@@ -72,7 +91,7 @@ const AddEditModal = (props) => {
               sx={{ mt: 1 }}
               onChange={handleChange}
             >
-              <MenuItem value='Drinks'>Drinks</MenuItem>
+              <MenuItem value='Drink'>Drinks</MenuItem>
               <MenuItem value='Food'>Food</MenuItem>
             </Select>
           </FormControl>
