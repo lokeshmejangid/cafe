@@ -16,17 +16,12 @@ const Menu = () => {
   const [isEdit, setEdit] = useState(false);
   const [isDelete, setDelete] = useState(false);
   const [editData, setEditData] = useState();
-  const [error, setError] = useState('');
 
   const handleEdit = (data) => {
     setEdit(true);
     setEditData(data);
   }
-
-  const Validation = () => {
-    setError(true);
-  }
-
+  
   const handleClose = () => {
     setEdit(false);
     setDelete(false);

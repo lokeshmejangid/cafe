@@ -40,14 +40,23 @@
   border-radius: 0.5em;
   box-shadow: 24;
   transform: translate(-50%, -50%);
-  justify-content: center;
 }
-.modal .addModal{
+
+.modal .saveBtn {
+  text-align: center;
+}
+
+.modal .addModal {
   margin: 0.5em 0em;
 }
-.modal .btnAddModal{
+
+.modal .btnAddModal {
   margin-top: 1em;
 }
-.modal .addMenu{
-margin: 1em 1em; 
+
+.modal .addMenu {
+  margin: 1em 1em;
+}
+.modal .deleteBtn{
+  text-align: center;
 }
