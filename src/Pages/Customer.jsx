@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { getAllBills } from "../Services/api";
+import Header from "../Component/Header/Header";
 
 const Customer = () => {
   const [bills, setBills] = useState();
@@ -49,6 +50,7 @@ const Customer = () => {
 
   return (
     <>
+    <Header isMenu={true} />
       <MUIDataTable
         title={"Customer Details"}
         data={bills}

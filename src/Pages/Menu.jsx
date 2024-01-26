@@ -12,6 +12,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Header from "../Component/Header/Header";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -46,10 +47,11 @@ const Menu = () => {
   };
 
   const changeObj = (obj) => {
-    const [id, itemName, category, price] = obj;
+    const [id, itemName, itemImg, category, price] = obj;
     return {
       id,
       itemName,
+      itemImg,
       category,
       price,
     };
@@ -57,14 +59,12 @@ const Menu = () => {
 
   const handleAddToCart = (tableMeta, value, updateValue) => {
     dispatch(addToCart({ ...changeObj(tableMeta.rowData), quantity: 1 }));
-    // Update localStorage
     const storedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     const updatedCartItems = [
       ...storedCartItems,
       { ...changeObj(tableMeta.rowData), quantity: 1 },
     ];
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-
     toast.success("Item Added in cart", { position: "top-center" });
   };
 
@@ -106,7 +106,8 @@ const Menu = () => {
 
   const getMenuData = async () => {
     try {
-      const result = await getMenu();
+      const userId = localStorage.getItem("userId")
+      const result = await getMenu(userId);
       setMenuData(result);
     } catch (error) {
       console.log(error);
@@ -127,7 +128,7 @@ const Menu = () => {
     return (
       <Tooltip disableFocusListener title="Add User">
         <IconButton onClick={handleAddBtn}>
-          <ControlPointIcon onClick={handleAddBtn}/>
+          <ControlPointIcon />
         </IconButton>
       </Tooltip>
     );
@@ -138,7 +139,7 @@ const Menu = () => {
     setDeleteData(data);
   };
   const handleLblColor = (data) => {
-    if (data === "food") return <span className="lbl-green">{data}</span>;
+    if (data === "Food") return <span className="lbl-green">{data}</span>;
     return <span className="lbl-yellow">{data}</span>;
   };
 
@@ -155,11 +156,20 @@ const Menu = () => {
       name: "itemName",
     },
     {
+      label: "Item Image",
+      name: "itemImg",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <img src={tableMeta.rowData[2]} className="itemImg" alt="Item Image"/>
+        },
+      },
+    },
+    {
       label: "Category",
       name: "category",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return handleLblColor(tableMeta.rowData[2]);
+          return handleLblColor(tableMeta.rowData[3]);
         },
       },
     },
@@ -168,7 +178,7 @@ const Menu = () => {
       name: "price",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <span>₹{tableMeta.rowData[3]} /-</span>;
+          return <span>₹{tableMeta.rowData[4]} /-</span>;
         },
       },
     },
@@ -240,6 +250,7 @@ const Menu = () => {
 
   return (
     <>
+      <Header isMenu={true} />
       <ToastContainer autoClose={1000} />
       <MUIDataTable
         title={"Cafe Menu"}

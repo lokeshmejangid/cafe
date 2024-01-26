@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, stepContentClasses } from "@mui/material";
 import React from "react";
 import Header from "./Component/Header/Header";
 import Footer from "./Component/Footer/Footer";
@@ -6,26 +6,34 @@ import Menu from "./Pages/Menu";
 import Cart from "./Pages/Cart";
 import Bills from "./Pages/Bills";
 import Customer from "./Pages/Customer";
-import './App.css'
+import "./App.css";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Register from "./Component/Register/Register";
 
-const App = () => {
-
+const App = () => {  
   return (
     <BrowserRouter>
-      <Header />
       <div className="h-content">
         <Routes>
-          <Route path="/" element={<Menu />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/bills" element={<Bills />} />
-          <Route path="/customer" element={<Customer />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path="/bills" element={<ProtectedRoute><Bills /></ProtectedRoute>} />
+          <Route path="/customer" element={<ProtectedRoute><Customer /></ProtectedRoute>} />
         </Routes>
       </div>
       <Footer />
     </BrowserRouter>
   );
+};
+
+const ProtectedRoute = ({ children }) => {
+  if (localStorage.getItem("token")) {
+    return children;
+  } else {
+    return <Navigate to="/" />;
+  }
 };
 
 export default App;

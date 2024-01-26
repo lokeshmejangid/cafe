@@ -1,13 +1,27 @@
 .nav {
     display: flex;
     justify-content: end;
+    align-items: center;
 }
 .nav a{
     text-decoration: none;
     padding: 0 0.5em;
     color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
 }
 .nav a.active {
     color: #e6c9a2 !important;
-    text-decoration: underline !important;
+    text-decoration: none;
+    border-bottom: 2px solid;
+    padding-bottom: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.nav .logout {
+    color: red;
+    padding-left: 1em;
+    cursor: pointer;
 }

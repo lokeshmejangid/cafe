@@ -2,13 +2,17 @@ import axios from "axios";
 
 //base url
 const instance = axios.create({
+  //baseURL: "https://restobillingbackend.onrender.com/",
   baseURL: "http://localhost:3005",
+  headers: {
+    'Content-Type': 'application/json',
+  }
 });
 
 //get all menu data
-export const getMenu = async () => {
+export const getMenu = async (id) => {
   try {
-    const response = await instance.get("/api/menu/getMenu");
+    const response = await instance.get(`/api/menu/getMenu`);
     return response.data;
   } catch (error) {
     throw error;
@@ -59,6 +63,26 @@ export const addCustomerBill = async (payload) => {
 export const getAllBills = async () => {
   try {
     const response = await instance.get("/api/bills/allBills");
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//register user
+export const registerUserData = async (payload) => {
+  try {
+    const response = await instance.post("/api/auth/register", payload);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//login user
+export const loginUserData = async (payload) => {
+  try {
+    const response = await instance.post("/api/auth/login", payload);
     return response.data;
   } catch (error) {
     throw error;

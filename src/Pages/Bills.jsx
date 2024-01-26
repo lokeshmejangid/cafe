@@ -3,6 +3,7 @@ import MUIDataTable from "mui-datatables";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import ReceiptModal from "../Component/Modal/ReceiptModal";
 import { getAllBills } from "../Services/api";
+import Header from "../Component/Header/Header";
 const Bills = () => {
   const [isReceipt, setReceipt] = useState(false);
   const [bills, setBills] = useState();
@@ -37,16 +38,13 @@ const Bills = () => {
     };
   };
 
-  const log = (data) => {
-    console.log(data);
-  }
+
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, "0");
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    console.log(date); // Move this line here
 
     return (
         [
@@ -217,6 +215,7 @@ const Bills = () => {
 
   return (
     <>
+      <Header isMenu={true} />
       <MUIDataTable
         title={"Bills"}
         data={bills}

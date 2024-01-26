@@ -6,7 +6,7 @@ a {
   text-decoration: none;
 }
 .h-content {
-  height: calc(100vh - 180px);
+  height: calc(100vh - 60px);
 }
 .green {
   color: green;
@@ -20,10 +20,6 @@ a {
 .h-content .tss-1cdcmys-MUIDataTable-responsiveBase{
   max-height: 65vh !important;
 }
-/* .MuiList-root .MuiButtonBase-root{
-  display: flex !important;
-  width: fit-content !important;
-} */
 .h-content .MuiTable-root .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon,
 .h-content .MuiTable-root thead tr th span,
 .h-content .MuiTable-root thead tr th {
@@ -60,5 +56,9 @@ a {
 .h-line{
   width: 100%;
   border: 0.5px solid #2d3743;
+  margin-top: 1em;
+}
+.error{
+  color: red;
   margin-top: 1em;
 }

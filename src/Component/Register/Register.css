@@ -1,0 +1,41 @@
+
+.singup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 180px);
+  }
+  
+  .singup .title{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #0e1927;
+    font-weight: bold;
+  }
+  .singup .btnContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+  }
+  .singup .btnContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  .singup .btnContainer div{
+    color: #0e1927;
+    font-size: 1rem;
+  }
+  .singup .btnContainer  a{
+    color: #0e1927;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #0e1927;
+  }
+  .singup .btnContainer button{
+    
+    margin: 0px;
+  }

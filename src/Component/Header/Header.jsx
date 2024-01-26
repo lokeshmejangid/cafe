@@ -6,7 +6,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <Grid container spacing={0} className="header">
       <Grid item xs={12} className="companyInfo">
@@ -21,18 +21,19 @@ const Header = () => {
       </Grid>
       <Grid item xs={12} container spacing={0} className="restoInfo">
         <Grid item xs={9}>
-          <NavLink to="/" className="logo">
+          <NavLink to={props.isMenu ? "/menu" : "/"} className="logo">
             <img
               src="./assets/images/logo.png"
               alt="logo"
               height="40px"
               width="40px"
             />
-            <span>Coffee Shop</span>
+            <span>Restaurant</span>
           </NavLink>
         </Grid>
+
         <Grid item xs={3}>
-          <Nav />
+          {props.isMenu && <Nav />}
         </Grid>
       </Grid>
     </Grid>

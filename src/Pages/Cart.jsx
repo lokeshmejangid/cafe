@@ -11,6 +11,7 @@ import InvoiceModal from "../Component/Modal/InvoiceModal";
 import { Button } from "@mui/material";
 import { addCustomerBill } from "../Services/api";
 import { addToCart } from "../Redux/Actions";
+import Header from "../Component/Header/Header";
 const Cart = () => {
   const dispatch = useDispatch();
 
@@ -21,7 +22,6 @@ const Cart = () => {
 
   const { cartItems, loading } = useSelector((state) => state.addToCartItems);
 
-  console.log(cartItems);
   const handleClose = () => {
     setDelete(false);
     setInvoice(false);
@@ -40,10 +40,11 @@ const Cart = () => {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
   };
   const changeObj = (obj) => {
-    const [id, itemName, category, price, quantity] = obj;
+    const [id, itemName, itemImg, category, price, quantity] = obj;
     return {
       id,
       itemName,
+      itemImg,
       category,
       price,
       quantity,
@@ -78,7 +79,7 @@ const Cart = () => {
   };
 
   const handleLblColor = (data) => {
-    if(data === 'food') return <span className="lbl-green">{data}</span>
+    if(data === 'Food') return <span className="lbl-green">{data}</span>
     return <span className="lbl-yellow">{data}</span>
   }
 
@@ -95,11 +96,20 @@ const Cart = () => {
       name: "itemName",
     },
     {
+      label: "Item Image",
+      name: "itemImg",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <img src={tableMeta.rowData[2]} className="itemImg" alt="Item Image"/>
+        },
+      },
+    },
+    {
       label: "Category",
       name: "category",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return handleLblColor(tableMeta.rowData[2]);
+          return handleLblColor(tableMeta.rowData[3]);
         },
       },
     },
@@ -113,7 +123,7 @@ const Cart = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <span>₹{tableMeta.rowData[3]} /-</span>
+              <span>₹{tableMeta.rowData[4]} /-</span>
             </>
           );
         },
@@ -133,11 +143,11 @@ const Cart = () => {
                 className=" icon"
                 onClick={() => handleIncrement(tableMeta.rowData)}
               />
-              <span>{tableMeta.rowData[4]}</span>
+              <span>{tableMeta.rowData[5]}</span>
               <RemoveCircleOutlineIcon
                 className=" icon"
                 onClick={() => {
-                  if (tableMeta.rowData[4] > 1) {
+                  if (tableMeta.rowData[5] > 1) {
                     handleDecrement(tableMeta.rowData);
                   }
                 }}
@@ -212,6 +222,7 @@ const Cart = () => {
   };
   return (
     <>
+      <Header isMenu={true} />
       <ToastContainer autoClose={1000} />
       <MUIDataTable
         title={"Cart"}

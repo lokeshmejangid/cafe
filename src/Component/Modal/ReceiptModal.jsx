@@ -7,7 +7,6 @@ const ReceiptModal = (props) => {
   const { isReceipt, bill, handleClose } = props;
   const componentRef = useRef();
 
-  console.log(bill);
   const handleDeleteAndClose = () => {
     handleClose();
   };
@@ -35,7 +34,7 @@ const ReceiptModal = (props) => {
             <img src="./assets/images/logo.png" alt="logo" height='100px' width= '100px'/>
           </div>
           <Grid item xs={12} className="companyName">
-            <span>Coffea</span>
+            <span>Restaurant</span>
           </Grid>
 
           <Grid item xs={12} className="description">

@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField, Button, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 
 const AddEditModal = (props) => {
   const { isEdit, handleClose, editData, handleUpdate } = props;
@@ -8,12 +16,15 @@ const AddEditModal = (props) => {
   const [txtItemName, setItemName] = useState("");
   const [txtItemCategory, setItemCategory] = useState("");
   const [txtItemPrice, setItemPrice] = useState("");
-
+  const [txtItemImg, setItemImg] = useState("");
   const [isBtnVisible, setBtnVisible] = useState(false);
+  const [isImgValid, setImgValid] = useState(true);
+  const [isImgBlur, setImgBlur] = useState(false);
 
   useEffect(() => {
     if (editData !== null && editData !== undefined) {
       setItemName(editData[1]);
+      setItemImg(editData[2]);
       setItemCategory(editData[2]);
       setItemPrice(editData[3]);
     }
@@ -21,14 +32,13 @@ const AddEditModal = (props) => {
 
   useEffect(() => {
     handleBtnVisibility();
-  }, [txtItemName, txtItemCategory, txtItemPrice]);
-
-
+  }, [txtItemName, txtItemImg,txtItemCategory, txtItemPrice]);
 
   const handleSave = () => {
     handleClose();
     const updatedData = {
       itemName: txtItemName,
+      itemImg: txtItemImg,
       price: txtItemPrice,
       category: txtItemCategory,
     };
@@ -38,6 +48,7 @@ const AddEditModal = (props) => {
   const handleBtnVisibility = () => {
     if (
       txtItemName.length > 0 &&
+      txtItemImg.length > 0 &&
       txtItemCategory.length > 0 &&
       txtItemPrice.length > 0
     )
@@ -54,12 +65,20 @@ const AddEditModal = (props) => {
       setItemCategory(value);
     } else if (name === "txtItemPrice") {
       setItemPrice(value);
-    } else {
+    } else if(name === 'txtItemImg'){
+      const imageUrlRegex = /\.(jpeg|jpg|gif|png|bmp)$/.test(value);
+      setImgValid(imageUrlRegex);
+      setItemImg(value)
+    }else {
       // Handle other casesll
     }
 
     handleBtnVisibility();
   };
+
+  const handleBlur = () => {
+    setImgBlur(true);
+  }
 
   return (
     <Modal
@@ -84,6 +103,25 @@ const AddEditModal = (props) => {
             value={txtItemName}
             onChange={handleChange}
           />
+
+          <TextField
+            id="txtItemImg"
+            name="txtItemImg"
+            label="Item Image URL"
+            variant="outlined"
+            sx={{ mt: 1 }}
+            fullWidth
+            value={txtItemImg}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={isImgBlur && (!isImgValid || txtItemImg.trim() == "")}
+            helperText={
+              isImgBlur &&
+              ((!isImgValid && "Invalid Image URL") ||
+                (txtItemImg.trim() == "" && "Image URL cannot be empty"))
+            }
+          />
+
           <FormControl fullWidth>
             <InputLabel id="lblCategory">Category</InputLabel>
             <Select
@@ -95,8 +133,8 @@ const AddEditModal = (props) => {
               sx={{ mt: 1 }}
               onChange={handleChange}
             >
-              <MenuItem value='Drinks'>Drinks</MenuItem>
-              <MenuItem value='Food'>Food</MenuItem>
+              <MenuItem value="Drinks">Drinks</MenuItem>
+              <MenuItem value="Food">Food</MenuItem>
             </Select>
           </FormControl>
 

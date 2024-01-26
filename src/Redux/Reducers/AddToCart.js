@@ -5,12 +5,25 @@ const initialState = {
 
 const addToCartItems = (state = initialState, action) => {
   switch (action.type) {
+    // case "ADD_TO_CART":
+    //   return {
+    //     ...state,
+    //     cartItems: [...state.cartItems, action.payload],
+    //   };
+    //   break;
+
     case "ADD_TO_CART":
+      const existingItem = state.cartItems.find(
+        (item) => item.id === action.payload.id
+      );
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: existingItem
+          ? state.cartItems
+          : [...state.cartItems, action.payload],
       };
       break;
+
     case "UPDATE_CART":
       return {
         ...state,
