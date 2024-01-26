@@ -8,6 +8,7 @@ import Cart from './Pages/Cart'
 import Bills from './Pages/Bills'
 import Customer from './Pages/Customer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Register from './Component/Register/Register'
 
 const App = () => {
 
@@ -17,7 +18,8 @@ const App = () => {
         <Header />
         <Grid className='h-content'>
           <Routes>
-            <Route path="/" element={<Menu />} />
+            <Route path="/" element={<Register />} />
+            <Route path="/menu" element={<Menu />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/bills" element={<Bills />} />
             <Route path="/customer" element={<Customer />} />

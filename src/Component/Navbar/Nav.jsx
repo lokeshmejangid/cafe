@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <List className='nav'>
       <ListItem>
-        <NavLink to='/'>Menu</NavLink>
+        <NavLink to='menu/'>Menu</NavLink>
       </ListItem>
       <ListItem>
       <NavLink to='/cart'>Cart</NavLink>
