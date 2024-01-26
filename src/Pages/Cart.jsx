@@ -12,8 +12,10 @@ import { Button } from "@mui/material";
 import { addCustomerBill } from "../Services/api";
 import { addToCart } from "../Redux/Actions";
 import Header from "../Component/Header/Header";
+import { Navigate, useNavigate } from "react-router-dom";
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isDelete, setDelete] = useState(false);
   const [deleteItem, setDeleteItem] = useState();
@@ -201,6 +203,12 @@ const Cart = () => {
     setInvoice(true);
   };
 
+  let interval;
+  const navigateOnBill = () => {
+    navigate('/bills');
+    clearInterval(interval);
+  }
+
   const addBill = async (payload) => {
     try {
       const result = await addCustomerBill(payload);
@@ -209,6 +217,10 @@ const Cart = () => {
       dispatch(clearCart());
       setSubTotal(0);
       toast.success(result, { position: "top-center" });
+
+      interval = setInterval(() => {
+        navigateOnBill();
+      }, 2500);
 
     } catch (error) {
       console.log(error);
