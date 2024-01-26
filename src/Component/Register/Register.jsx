@@ -4,21 +4,21 @@ import Login from './Login'
 
 const Register = () => {
 
-    const [email, setEmail] = useState('');
-    const [restoName, setRestoName] = useState('');
-    const [regiNumber, setRegiNumber] = useState('');
-    const [password, setPassword] = useState('');
+    const [txtEmail, setEmail] = useState('');
+    const [txtRestoName, setRestoName] = useState('');
+    const [txtRegiNumber, setRegiNumber] = useState('');
+    const [txtPassword, setPassword] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         console.log(name + " " + value);
-        if (name === email) {
+        if (name === txtEmail) {
             setEmail(value)
-        } else if (name === restoName) {
+        } else if (name ===txtRestoName) {
             setRestoName(value)
-        } else if (name === regiNumber) {
+        } else if (name === txtRegiNumber) {
             setRegiNumber(value)
-        } else if (name === password) {
+        } else if (name === txtPassword) {
             setPassword(value)
         } else {
             //todo
@@ -31,37 +31,37 @@ const Register = () => {
             <Grid item xs={12}  >
                 <TextField
                     required
-                    id="email"
+                    id="txtEmail"
                     label="Email"
-                    name='email'
-                    value={email}
+                    name='txtEmail'
+                    value={txtEmail}
                     fullWidth
                     sx={{ mt: 5 }}
                     onChange={handleChange}
                 />
                 <TextField
-                    id="restoName"
+                    id="txtRestoName"
                     label="Restaurant Name"
-                    name='restoName'
-                    value={restoName}
+                    name='txtRestoName'
+                    value={txtRestoName}
                     fullWidth
                     sx={{ mt: 2 }}
                     onChange={handleChange}
                 />
                 <TextField
-                    id="regiNumber"
+                    id="txtRegiNumber"
                     label="Contact Number"
-                    name='regiNumber'
-                    value={regiNumber}
+                    name='txtRegiNumber'
+                    value={txtRegiNumber}
                     fullWidth
                     sx={{ mt: 2 }}
                     onChange={handleChange}
                 />
                 <TextField
-                    id="password"
+                    id="txtPassword"
                     label="Password"
-                    name='password'
-                    value={password}
+                    name='txtPassword'
+                    value={txtPassword}
                     fullWidth
                     sx={{ mt: 2 }}
                     onChange={handleChange}
