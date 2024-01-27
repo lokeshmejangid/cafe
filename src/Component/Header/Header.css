@@ -32,5 +32,6 @@
 
 .restoInfo .logo span{
     font-size: 1.5rem;
-    color:#e6c9a2
+    color:#e6c9a2;
+    text-transform: capitalize;
 }

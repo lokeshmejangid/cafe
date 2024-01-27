@@ -24,3 +24,10 @@ export const clearCart = () => {
         type: "CLEAR_CART",
     }
 }
+
+export const saveUserId = (payload) => {
+    return{
+        type: "SAVE_USER_ID",
+        payload: payload
+    }
+}

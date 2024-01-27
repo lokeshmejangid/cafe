@@ -4,10 +4,17 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import ReceiptModal from "../Component/Modal/ReceiptModal";
 import { getAllBills } from "../Services/api";
 import Header from "../Component/Header/Header";
+import { useSelector } from "react-redux";
+
 const Bills = () => {
   const [isReceipt, setReceipt] = useState(false);
   const [bills, setBills] = useState();
   const [customerBill, setCustomerBill] = useState();
+  
+  //const { userId } = useSelector((state) => state.saveUserId);
+  const user = JSON.parse(localStorage.getItem('user'));
+  let userId;
+  if(user !== undefined && user !== null) userId = user._id;
 
   const handleClose = () => {
     setReceipt(false);
@@ -63,15 +70,24 @@ const Bills = () => {
 
   const columns = [
     {
-      label: "id",
+      label: "S.No.",
       name: "_id",
       options: {
-        display: false,
+        filter: false,
+        customBodyRender: (value, tableMeta, update) => {
+          let rowIndex = Number(tableMeta.rowIndex) + 1;
+          return <span>{rowIndex}</span>;
+        },
       },
     },
     {
       label: "Customer Name",
       name: "customerName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <span className="itemName">{tableMeta.rowData[1]}</span>
+        },
+      },
     },
     {
       label: "Contact Number",
@@ -201,7 +217,7 @@ const Bills = () => {
 
   const getBillsData = async () => {
     try {
-      const result = await getAllBills();
+      const result = await getAllBills(userId);
       setBills(customSort(result, "date", "desc"));
     } catch (error) {
       console.log(error);

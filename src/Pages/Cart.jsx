@@ -23,6 +23,11 @@ const Cart = () => {
   const [invoice, setInvoice] = useState(false);
 
   const { cartItems, loading } = useSelector((state) => state.addToCartItems);
+  //const { userId } = useSelector((state) => state.saveUserId);
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  let userId;
+  if(user !== undefined && user !== null) userId = user._id;
 
   const handleClose = () => {
     setDelete(false);
@@ -87,15 +92,24 @@ const Cart = () => {
 
   const columns = [
     {
-      label: "ID",
+      label: "S.No.",
       name: "id",
       options: {
-        display: false,
+        filter: false,
+        customBodyRender: (value, tableMeta, update) => {
+          let rowIndex = Number(tableMeta.rowIndex) + 1;
+          return <span>{rowIndex}</span>;
+        },
       },
     },
     {
       label: "Item Name",
       name: "itemName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <span className="itemName">{tableMeta.rowData[1]}</span>
+        },
+      },
     },
     {
       label: "Item Image",
@@ -229,7 +243,7 @@ const Cart = () => {
 
   const handleBills = (data) => {
     //const payload = { ...data, cartItems: cartItems, date: formatDate(new Date()) };
-    const payload = { ...data, cartItems: cartItems, date: new Date() };
+    const payload = { ...data, cartItems: cartItems, date: new Date(), userId: userId };
     addBill(payload);
   };
   return (

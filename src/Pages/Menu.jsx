@@ -6,7 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AddEditModal from "../Component/Modal/AddEditModal";
 import DeleteModal from "../Component/Modal/DeleteModal";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Actions";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
@@ -16,7 +16,11 @@ import Header from "../Component/Header/Header";
 
 const Menu = () => {
   const dispatch = useDispatch();
-
+  //const { userId } = useSelector((state) => state.saveUserId);
+  const user = JSON.parse(localStorage.getItem('user'));
+  let userId;
+  if(user !== undefined && user !== null) userId = user._id;
+  
   const [isEdit, setEdit] = useState(false);
   const [editData, setEditData] = useState();
   const [isDelete, setDelete] = useState(false);
@@ -106,7 +110,6 @@ const Menu = () => {
 
   const getMenuData = async () => {
     try {
-      const userId = localStorage.getItem("userId")
       const result = await getMenu(userId);
       setMenuData(result);
     } catch (error) {
@@ -145,15 +148,24 @@ const Menu = () => {
 
   const columns = [
     {
-      label: "ID",
+      label: "S.No.",
       name: "_id",
       options: {
-        display: false,
+        filter: false,
+        customBodyRender: (value, tableMeta, update) => {
+          let rowIndex = Number(tableMeta.rowIndex) + 1;
+          return <span>{rowIndex}</span>;
+        },
       },
     },
     {
       label: "Item Name",
       name: "itemName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <span className="itemName">{tableMeta.rowData[1]}</span>
+        },
+      },
     },
     {
       label: "Item Image",

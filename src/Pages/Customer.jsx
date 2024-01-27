@@ -5,6 +5,9 @@ import Header from "../Component/Header/Header";
 
 const Customer = () => {
   const [bills, setBills] = useState();
+  const user = JSON.parse(localStorage.getItem('user'));
+  let userId;
+  if(user !== undefined && user !== null) userId = user._id;
   const columns = [
     {
       label: "S. No",
@@ -20,6 +23,11 @@ const Customer = () => {
     {
       label: "Customer Name",
       name: "customerName",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <span className="itemName">{tableMeta.rowData[1]}</span>
+        },
+      },
     },
     {
       label: "Contact Number",
@@ -38,7 +46,7 @@ const Customer = () => {
 
   const getBillsData = async () => {
     try {
-      const result = await getAllBills();
+      const result = await getAllBills(userId);
       setBills(result);
     } catch (error) {
       console.log(error);

@@ -4,6 +4,8 @@ import { Grid, Button } from "@mui/material";
 import { useReactToPrint } from "react-to-print";
 
 const ReceiptModal = (props) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   const { isReceipt, bill, handleClose } = props;
   const componentRef = useRef();
 
@@ -34,11 +36,11 @@ const ReceiptModal = (props) => {
             <img src="./assets/images/logo.png" alt="logo" height='100px' width= '100px'/>
           </div>
           <Grid item xs={12} className="companyName">
-            <span>Restaurant</span>
+          <span>{(user && user !== undefined) ? user.restaName : 'Restaurant'}</span>
           </Grid>
 
           <Grid item xs={12} className="description">
-            Contact: 9784477117 | Jaipur, Rajasthan
+            <span>{(user && user !== undefined) ? `Contact: ${user.contactNumber} | ${user.address}` : 'Contact: 9784477117 | Jaipur, Rajasthan'}</span>            
           </Grid>
 
           <Grid item xs={12} container spacing={0} sx={{ mt: 4 }}>

@@ -8,9 +8,8 @@ const Footer = () => {
     <Grid container spacing={0} className='footer'>
       <Grid item xs={6} className='copyright'>Copyright © 2024 Coffee Shop. All Rights Reserved.</Grid>
       <Grid item xs={6} className='links'>
-        <NavLink to=''>PRIVACY</NavLink>
-        <NavLink to=''>TERM OF USE</NavLink>
-        <NavLink to=''>POLICY</NavLink>
+        <NavLink to='/privacy'>PRIVACY</NavLink>
+        <NavLink to='/term'>TERM OF USE POLICY</NavLink>
       </Grid>
     </Grid>
 

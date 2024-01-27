@@ -16,14 +16,21 @@
   margin-top: 1em;
 }
 .companyName {
-  font-weight: 900;
   display: flex;
   justify-content: center;
+}
+.companyName span {
+  font-weight: 900;
+  margin: 0.2em 0em;
   font-size: 1.5rem;
+  text-transform: capitalize;  
 }
 .description {
   display: flex;
   justify-content: center;
+}
+.description span {
+  text-transform: capitalize
 }
 .modal table {
   width: 100%;
@@ -64,10 +71,10 @@
   color: white;
 }
 .lbl-yellow {
-  background: yellow;
+  background: red;
   padding: 4px 8px;
   border-radius: 4px;
-  color: black;
+  color: white;
 }
 
 .lbl-green {
@@ -80,4 +87,8 @@
   border-radius: 5px;
   height: 50px;
   width: 50px;
+}
+.itemName {
+  font-weight: bold;
+  text-transform: capitalize;
 }

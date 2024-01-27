@@ -9,10 +9,12 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const AddEditModal = (props) => {
   const { isEdit, handleClose, editData, handleUpdate } = props;
-
+  //const { userId } = useSelector((state) => state.saveUserId);
+  const user = JSON.parse(localStorage.getItem('user'));
   const [txtItemName, setItemName] = useState("");
   const [txtItemCategory, setItemCategory] = useState("");
   const [txtItemPrice, setItemPrice] = useState("");
@@ -20,13 +22,16 @@ const AddEditModal = (props) => {
   const [isBtnVisible, setBtnVisible] = useState(false);
   const [isImgValid, setImgValid] = useState(true);
   const [isImgBlur, setImgBlur] = useState(false);
+  
+  let userId;
+  if(user !== undefined && user !== null) userId = user._id;
 
   useEffect(() => {
     if (editData !== null && editData !== undefined) {
       setItemName(editData[1]);
       setItemImg(editData[2]);
-      setItemCategory(editData[2]);
-      setItemPrice(editData[3]);
+      setItemCategory(editData[3]);
+      setItemPrice(editData[4]);
     }
   }, [editData]);
 
@@ -41,6 +46,7 @@ const AddEditModal = (props) => {
       itemImg: txtItemImg,
       price: txtItemPrice,
       category: txtItemCategory,
+      userId: userId
     };
     handleUpdate(updatedData);
   };
