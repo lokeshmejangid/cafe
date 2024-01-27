@@ -57,10 +57,26 @@
 .modal .addMenu {
   margin: 1em 1em;
 }
-.modal .deleteBtn{
+
+.modal .deleteBtn {
   text-align: center;
 }
-.register{
+
+.register {
+  display: flex;
+  position: absolute;
+  width: 40% !important;
+  padding: 1em;
+  top: 50%;
+  left: 50%;
+  border-radius: 0.5em;
+  box-shadow: 24;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  font-weight: bold;
+}
+
+.login {
   display: flex;
   position: absolute;
   width: 40% !important;

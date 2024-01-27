@@ -6,6 +6,7 @@ import Footer from './Component/Footer/Footer'
 import Menu from './Pages/Menu'
 import Cart from './Pages/Cart'
 import Bills from './Pages/Bills'
+import Login from './Component/Register/Login'
 import Customer from './Pages/Customer'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Register from './Component/Register/Register'
@@ -19,6 +20,7 @@ const App = () => {
         <Grid className='h-content'>
           <Routes>
             <Route path="/" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/bills" element={<Bills />} />
