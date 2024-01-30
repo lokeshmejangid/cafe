@@ -23,21 +23,22 @@
   font-weight: 900;
   margin: 0.2em 0em;
   font-size: 1.5rem;
-  text-transform: capitalize;  
+  text-transform: capitalize;
 }
 .description {
   display: flex;
   justify-content: center;
 }
 .description span {
-  text-transform: capitalize
+  text-transform: capitalize;
 }
 .modal table {
   width: 100%;
   margin: 1em 0em;
 }
 
-.modal table tr, .modal table td {
+.modal table tr,
+.modal table td {
   text-align: center;
 }
 .invoice-bill {
@@ -71,10 +72,10 @@
   color: white;
 }
 .lbl-yellow {
-  background: red;
+  background: yellow;
   padding: 4px 8px;
   border-radius: 4px;
-  color: white;
+  color: black;
 }
 
 .lbl-green {
@@ -91,4 +92,106 @@
 .itemName {
   font-weight: bold;
   text-transform: capitalize;
+}
+.dashboard {
+  padding: 1em 3em;
+  align-items: center;
+}
+.dashboard .dashContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.dashboard .btnContainer {
+  display: flex;
+  justify-content: end;
+}
+.dashboard .dashContent span {
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+}
+.dashboard .filterBtn {
+  margin: 0px 1em;
+  min-width: 7em;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+  background: #e6c9a2;
+  color: black;
+}
+.dashboard .filterBtn:last-child {
+  margin-right: 0em;
+}
+
+.dashboard .infoContainer .card {
+  min-height: 10em;
+  -webkit-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+}
+.dashboard .infoContainer .MuiCardContent-root {
+  width: 100%;
+}
+.dashboard .infoContainer .card-first {
+  align-items: center;
+  display: flex;
+}
+.dashboard .infoContainer .card-first .top {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.dashboard .infoContainer .card-first .icon {
+  color: green;
+}
+.dashboard .infoContainer .card-first span:first-child {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.dashboard .infoContainer .card-first .mid {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.5em 0em;
+}
+.dashboard .infoContainer .card-first .bottom {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.dashboard .infoContainer .card-first .bottom .percentage {
+  font-size: 1rem;
+  display: flex;
+  gap: 0.2em;
+  align-items: center;
+  background: green;
+  border-radius: 5px;
+  color: white;
+  padding: 0.2em 0.5em;
+}
+.dashboard .infoContainer .card-first .bottom .percentage svg{
+  height: 0.8em;
+  width: 0.8em;
+}
+/* .dashboard .infoContainer .card-first {
+  background: red;
+}
+.dashboard .infoContainer .card-second {
+  background: green;
+}
+.dashboard .infoContainer .card-third {
+  background: pink;
+}
+.dashboard .infoContainer .card-four {
+  background: orange;
+} */
+
+.dashboard .chart {
+  padding: 1em;
+  min-height: 400px;
+  -webkit-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
 }

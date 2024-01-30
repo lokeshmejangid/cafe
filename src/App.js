@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./Component/Register/Register";
 import Term from "./Component/PrIvacyTerm/Term";
 import Privacy from "./Component/PrIvacyTerm/Privacy";
+import Dashboard from "./Pages/Dashboard";
 
 const App = () => {  
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/" element={<Register />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/term" element={<Term />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/bills" element={<ProtectedRoute><Bills /></ProtectedRoute>} />
