@@ -10,17 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Actions";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import Header from "../Component/Header/Header";
 
 const Menu = () => {
   const dispatch = useDispatch();
   //const { userId } = useSelector((state) => state.saveUserId);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   let userId;
-  if(user !== undefined && user !== null) userId = user._id;
-  
+  if (user !== undefined && user !== null) userId = user._id;
+
   const [isEdit, setEdit] = useState(false);
   const [editData, setEditData] = useState();
   const [isDelete, setDelete] = useState(false);
@@ -142,7 +142,8 @@ const Menu = () => {
     setDeleteData(data);
   };
   const handleLblColor = (data) => {
-    if (data === "Food") return <span className="lbl-green">{data}</span>;
+    if (data === "Drinks") return <span className="lbl-green">{data}</span>;
+    else if (data === "Food") return <span className="lbl-red">{data}</span>;
     return <span className="lbl-yellow">{data}</span>;
   };
 
@@ -162,8 +163,9 @@ const Menu = () => {
       label: "Item Name",
       name: "itemName",
       options: {
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <span className="itemName">{tableMeta.rowData[1]}</span>
+          return <span className="itemName">{tableMeta.rowData[1]}</span>;
         },
       },
     },
@@ -171,8 +173,15 @@ const Menu = () => {
       label: "Item Image",
       name: "itemImg",
       options: {
+        filter: false,
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <img src={tableMeta.rowData[2]} className="itemImg" alt="Item Image"/>
+          return (
+            <img
+              src={tableMeta.rowData[2]}
+              className="itemImg"
+              alt="Item Image"
+            />
+          );
         },
       },
     },

@@ -33,8 +33,7 @@ const Header = (props) => {
               height="40px"
               width="40px"
             />
-            <span>{user !== undefined && user.restaName}</span>
-          </NavLink>
+            <span>{user !== undefined && user.restaName ? user.restaName : "Restaurant"}</span></NavLink>
         </Grid>
 
         <Grid item xs={3}>
