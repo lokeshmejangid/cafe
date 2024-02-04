@@ -3,7 +3,13 @@ import Modal from "@mui/material/Modal";
 import { Grid, Button } from "@mui/material";
 import { useReactToPrint } from "react-to-print";
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 const ReceiptModal = (props) => {
+  const theme = useTheme();
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
+
   const user = JSON.parse(localStorage.getItem('user'));
 
   const { isReceipt, bill, handleClose } = props;
@@ -24,7 +30,7 @@ const ReceiptModal = (props) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Grid container spacing={0} className="modal" justifyContent={"center"}>
+      <Grid container spacing={0} className={`modal ${xs && 'modal-xs'}`} justifyContent={"center"}>
         <Grid
         className="invoice-bill"
           container

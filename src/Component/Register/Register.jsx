@@ -144,7 +144,7 @@ const Register = () => {
       localStorage.setItem("user", JSON.stringify(response.user));
       //dispatch(saveUserId({userId: response.userId}));
       clearData();
-      navigate("/menu");
+      navigate("/dashboard");
     } catch (error) {
       if (error.response.status !== undefined && error.response.status === 400)
         toast.error(error.response.data.msg, { position: "top-center" });
@@ -184,7 +184,7 @@ const Register = () => {
   //currently login  user
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      navigate("/menu");
+      navigate("/dashboard");
     }
   }, [navigate]);
 
@@ -194,7 +194,7 @@ const Register = () => {
 
       <Grid container spacing={0} className="singup">
         <ToastContainer autoClose={1000} />
-        <Grid item xs={4}>
+        <Grid item xs={11} sm={4}>
           <Card>
             <CardContent>
               <div className="title">Welcome to Restaurants Billing App</div>

@@ -1,111 +1,241 @@
-import React from "react";
+import "../Dashboard.css";
+import React, { useEffect, useState } from "react";
 import Header from "../Component/Header/Header";
 import { ToastContainer, toast } from "react-toastify";
 import { Button, Grid, Card, CardContent } from "@mui/material";
-import Chart from "../Component/Chart/Chart";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import FilterFramesIcon from '@mui/icons-material/FilterFrames';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import { NavLink } from "react-router-dom";
+import { FaHouseUser } from "react-icons/fa";
+import { FaMoneyBill } from "react-icons/fa6";
+import { FaFirstOrderAlt } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import Chart from "../Component/Chart";
+import { getUserInfo } from "../Services/api";
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Dashboard = () => {
-  const data = [
-    { date: "2024-01-27", orders: 50 },
-    { date: "2024-01-26", orders: 25 },
-    { date: "2024-01-25", orders: 45 },
-    { date: "2024-01-24", orders: 25 },
-    { date: "2024-01-23", orders: 50 },
-    { date: "2024-01-22", orders: 78 },
-    { date: "2024-01-21", orders: 11 },
-    { date: "2024-01-20", orders: 34 },
-    { date: "2024-01-19", orders: 34 },
-    { date: "2024-01-18", orders: 66 },
-    { date: "2024-01-17", orders: 80 },
-    { date: "2024-01-16", orders: 78 },
-    { date: "2024-01-15", orders: 65 },
-    { date: "2024-01-14", orders: 45 },
-    { date: "2024-01-13", orders: 98 },
-    { date: "2024-01-12", orders: 90 },
-    { date: "2024-01-11", orders: 89 },
-    { date: "2024-01-10", orders: 67 },
-    { date: "2024-01-09", orders: 55 },
-    { date: "2024-01-08", orders: 15 },
-    // Add more data for other days
-  ];
+  const theme = useTheme();
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
+
+  const [isSelected, setSelected] = useState("All Records");
+  const [billInfo, setBillInfo] = useState();
+  const [filterDate, setFilterDate] = useState();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  let userId;
+  if (user !== undefined && user !== null) userId = user._id;
+  let payload = null;
+  let date = null;
+
+  const calculateStartDateOfWeek = () => {
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay());
+    return startOfWeek;
+  };
+
+  const calculateStartDateOfMonth = () => {
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    return startOfMonth;
+  };
+
+  const calculateStartDateOfYear = () => {
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 1);
+    return startOfYear;
+  };
+
+  const handleFilter = (data) => {
+    if (data === "Today") {
+      setSelected("Today");
+      date = new Date();
+      date.setHours(0, 0, 0, 0);
+    } else if (data === "This Week") {
+      setSelected("This Week");
+      date = calculateStartDateOfWeek();
+    } else if (data === "This Month") {
+      setSelected("This Month");
+      date = calculateStartDateOfMonth();
+    } else if (data === "This Year") {
+      setSelected("This Year");
+      date = calculateStartDateOfYear();
+    } else if (data === "All Records") {
+      setSelected("All Records");
+      date = null;
+    }
+    setFilterDate(date);
+    payload = {
+      userId: userId,
+      selectedDate: date,
+    };
+    console.log(date);
+    getUser(payload);
+  };
+
+  const getUser = async (payload) => {
+    try {
+      const result = await getUserInfo(payload);
+      setBillInfo(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    payload = {
+      userId: userId,
+      selectedDate: null,
+    };
+    getUser(payload);
+  }, []);
 
   return (
     <>
       <Header isMenu={true} />
       <ToastContainer autoClose={1000} />
-      <Grid container spacing={0} mt={1} className="dashboard">
-        <Grid item xs={3}>
+      <Grid container spacing={0} mt={1} className={`dashboard ${xs && 'p-10'}`}>
+        <Grid item xs={12} sm={3}>
           <div className="dashContent">
             <DashboardIcon />
             <span>Dashboard</span>
           </div>
         </Grid>
-        <Grid item xs={9} className="btnContainer">
-          <Button variant="contained" className="filterBtn">
-            All
-          </Button>
-          <Button variant="contained" className="filterBtn">
+        <Grid item xs={12} sm={9} className={`btnContainer ${!xs && 'justify-end'}`}>
+          <div
+            className={`filterBtn ${isSelected === "Today" && 'active'} ${xs && 'filterBtnXs'}`}
+            onClick={() => handleFilter("Today")}
+          >
             Today
-          </Button>
-          <Button variant="contained" className="filterBtn">
+          </div>
+          <div
+            className={`filterBtn ${isSelected === "This Week" && 'active'} ${xs && 'filterBtnXs'}`}
+            onClick={() => handleFilter("This Week")}
+          >
             This Week
-          </Button>
-          <Button variant="contained" className="filterBtn">
+          </div>
+          <div
+            className={`filterBtn ${isSelected === "This Month" && 'active'} ${xs && 'filterBtnXs'}`}
+            onClick={() => handleFilter("This Month")}
+          >
             This Month
-          </Button>
-          <Button variant="contained" className="filterBtn">
+          </div>
+          <div
+            className={`filterBtn ${isSelected === "This Year" && 'active'} ${xs && 'filterBtnXs'}`}
+            onClick={() => handleFilter("This Year")}
+          >
             This Year
-          </Button>
+          </div>
+          <div
+            className={`filterBtn ${isSelected === "All Records" && 'active'} ${xs && 'filterBtnXs'}`}
+            onClick={() => handleFilter("All Records")}
+          >
+            All
+          </div>
         </Grid>
         <Grid
           item
           xs={12}
           container
-          spacing={5}
+          spacing={xs ? 0 : 5}
           mt={1}
           className="infoContainer"
         >
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={3}>
             <Card className="card card-first">
               <CardContent>
                 <div className="top">
-                  <FilterFramesIcon className="icon" />
-                  <span>Total Orders</span>
-                </div>
-                <div className="mid">₹ 2500/-</div>
-                <div className="bottom">
-                  <div className="percentage">
-                    <ArrowUpwardIcon />5%
+                  <div>
+                    <FaHeart className="icon" />
+                    <span>Total Orders Value</span>
                   </div>
-                  <span>Since Last Month</span>
+                  <NavLink to="/bills" state={{ date: filterDate }}>
+                    Sell All
+                  </NavLink>
+                </div>
+                <div className="mid">
+                  ₹ {billInfo ? Math.round(billInfo.totalAmountSum) : 0}/-
+                </div>
+                <div className="bottom">
+                  <span>{isSelected}</span>
                 </div>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={3}>
             <Card className="card card-second">
-              <CardContent>Total Item Sold</CardContent>
+              <CardContent>
+                <div className="top">
+                  <div>
+                    <FaMoneyBill className="icon" />
+                    <span>Average Orders Value</span>
+                  </div>
+                  <NavLink to="/bills" state={{ date: filterDate }}>
+                    Sell All
+                  </NavLink>
+                </div>
+                <div className="mid">
+                  ₹ {billInfo ? Math.round(billInfo.averageBillValue) : 0}/-
+                </div>
+                <div className="bottom">
+                  <span>{isSelected}</span>
+                </div>
+              </CardContent>
             </Card>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={3}>
             <Card className="card card-third">
-              <CardContent>Average Bill Value</CardContent>
+              <CardContent>
+                <div className="top">
+                  <div>
+                    <FaFirstOrderAlt className="icon" />
+                    <span>Total Orders Count</span>
+                  </div>
+                  <NavLink to="/bills" state={{ date: filterDate }}>
+                    Sell All
+                  </NavLink>
+                </div>
+                <div className="mid">
+                  {billInfo ? Math.round(billInfo.orderCount) : 0}
+                </div>
+                <div className="bottom">
+                  <span>{isSelected}</span>
+                </div>
+              </CardContent>
             </Card>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={3}>
             <Card className="card card-four">
-              <CardContent>Total Customer</CardContent>
+              <CardContent>
+                <div className="top">
+                  <div>
+                    <FaHouseUser className="icon" />
+                    <span>Total Customer</span>
+                  </div>
+                  <NavLink to="/customer" state={{ date: filterDate }}>
+                    Sell All
+                  </NavLink>
+                </div>
+                <div className="mid">
+                  {billInfo ? Math.round(billInfo.customerCount) : 0}
+                </div>
+                <div className="bottom">
+                  <span>{isSelected}</span>
+                </div>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
-        <Grid item xs={12} mt={5}>
+        <Grid item xs={12} mt={xs ? 1 : 5}>
           <div className="chart">
-            <Chart data={data} />
+            <Chart
+              chartData={billInfo !== undefined ? billInfo.chartData : []}
+            />
           </div>
         </Grid>
       </Grid>

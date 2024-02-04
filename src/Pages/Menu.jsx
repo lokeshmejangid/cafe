@@ -13,6 +13,8 @@ import { addMenu, getMenu, updateMenu, deleteMenu } from "../Services/api";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Header from "../Component/Header/Header";
+import { NavLink } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -272,6 +274,10 @@ const Menu = () => {
   return (
     <>
       <Header isMenu={true} />
+      <div className="goToDashboard">
+        <ArrowBackIcon />
+        <NavLink to={'/dashboard'}>Go To Dashboard</NavLink>
+      </div>
       <ToastContainer autoClose={1000} />
       <MUIDataTable
         title={"Cafe Menu"}

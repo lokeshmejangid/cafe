@@ -12,7 +12,8 @@ import { Button } from "@mui/material";
 import { addCustomerBill } from "../Services/api";
 import { addToCart } from "../Redux/Actions";
 import Header from "../Component/Header/Header";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, NavLink } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const Cart = () => {
       (item) => item.id !== deleteItem.id
     );
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    setSubTotal('0');
   };
   const changeObj = (obj) => {
     const [id, itemName, itemImg, category, price, quantity] = obj;
@@ -249,6 +251,10 @@ const Cart = () => {
   return (
     <>
       <Header isMenu={true} />
+      <div className="goToDashboard">
+        <ArrowBackIcon />
+        <NavLink to={'/dashboard'}>Go To Dashboard</NavLink>
+      </div>
       <ToastContainer autoClose={1000} />
       <MUIDataTable
         title={"Cart"}
@@ -261,7 +267,7 @@ const Cart = () => {
           Sub Total: <b>{subTotal}</b> /-
         </h2>
 
-        <Button variant="contained" onClick={handleInvoice}>
+        <Button variant="contained" disabled={(cartItems.length === 0) ? true: false} onClick={handleInvoice}>
           Create Invoice
         </Button>
       </div>

@@ -13,7 +13,7 @@
 .footer .links{
     display: flex;
     gap: 0.5em;
-    justify-content: end;
+    justify-content: center;
 }
 .footer .links a{
     color: white

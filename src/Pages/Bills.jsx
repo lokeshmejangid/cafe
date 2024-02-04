@@ -5,16 +5,27 @@ import ReceiptModal from "../Component/Modal/ReceiptModal";
 import { getAllBills } from "../Services/api";
 import Header from "../Component/Header/Header";
 import { useSelector } from "react-redux";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const Bills = () => {
+const Bills = (props) => {
   const [isReceipt, setReceipt] = useState(false);
   const [bills, setBills] = useState();
   const [customerBill, setCustomerBill] = useState();
-  
+
   //const { userId } = useSelector((state) => state.saveUserId);
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   let userId;
-  if(user !== undefined && user !== null) userId = user._id;
+  if (user !== undefined && user !== null) userId = user._id;
+
+  const location = useLocation();
+  let date;
+  if (location.state !== null && location.state !== undefined) {
+    date = location.state;
+  }else{
+    date = undefined;
+  }
 
   const handleClose = () => {
     setReceipt(false);
@@ -45,7 +56,6 @@ const Bills = () => {
     };
   };
 
-
   const padTo2Digits = (num) => {
     return num.toString().padStart(2, "0");
   };
@@ -54,19 +64,19 @@ const Bills = () => {
     const date = new Date(dateString);
 
     return (
-        [
-            padTo2Digits(date.getDate()),
-            padTo2Digits(date.getMonth() + 1),
-            date.getFullYear(),
-        ].join("-") +
-        " " +
-        [
-            padTo2Digits(date.getHours()),
-            padTo2Digits(date.getMinutes()),
-            padTo2Digits(date.getSeconds()),
-        ].join(":")
+      [
+        padTo2Digits(date.getDate()),
+        padTo2Digits(date.getMonth() + 1),
+        date.getFullYear(),
+      ].join("-") +
+      " " +
+      [
+        padTo2Digits(date.getHours()),
+        padTo2Digits(date.getMinutes()),
+        padTo2Digits(date.getSeconds()),
+      ].join(":")
     );
-};
+  };
 
   const columns = [
     {
@@ -85,7 +95,7 @@ const Bills = () => {
       name: "customerName",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <span className="itemName">{tableMeta.rowData[1]}</span>
+          return <span className="itemName">{tableMeta.rowData[1]}</span>;
         },
       },
     },
@@ -215,9 +225,11 @@ const Bills = () => {
     });
   };
 
-  const getBillsData = async () => {
+  const getBillsData = async (payload) => {
     try {
-      const result = await getAllBills(userId);
+      console.log('call')
+      const result = await getAllBills(payload);
+      console.log(result)
       setBills(customSort(result, "date", "desc"));
     } catch (error) {
       console.log(error);
@@ -226,12 +238,20 @@ const Bills = () => {
 
   //get menu data
   useEffect(() => {
-    getBillsData();
+    const payload = {
+      userId: userId,
+      date: date ? date.date : undefined
+    };
+    getBillsData(payload);
   }, []);
 
   return (
     <>
       <Header isMenu={true} />
+      <div className="goToDashboard">
+        <ArrowBackIcon />
+        <NavLink to={"/dashboard"}>Go To Dashboard</NavLink>
+      </div>
       <MUIDataTable
         title={"Bills"}
         data={bills}

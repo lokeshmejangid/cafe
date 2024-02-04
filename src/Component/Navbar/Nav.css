@@ -1,7 +1,6 @@
 .nav {
     display: flex;
-    justify-content: end;
-    align-items: center;
+    justify-content: space-between;
 }
 .nav a{
     text-decoration: none;
@@ -11,6 +10,9 @@
     font-weight: 600;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
+}
+.nav a:first-child {
+    padding: 0em !important;
 }
 .nav a.active {
     color: #e6c9a2 !important;

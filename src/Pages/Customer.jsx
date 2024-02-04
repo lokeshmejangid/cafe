@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { getAllBills } from "../Services/api";
 import Header from "../Component/Header/Header";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Customer = () => {
+  const location = useLocation();
   const [bills, setBills] = useState();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   let userId;
-  if(user !== undefined && user !== null) userId = user._id;
+  if (user !== undefined && user !== null) userId = user._id;
+
+  let date;
+  if (location.state !== null && location.state !== undefined) {
+    date = location.state;
+  } else {
+    date = undefined;
+  }
   const columns = [
     {
       label: "S. No",
@@ -25,7 +36,7 @@ const Customer = () => {
       name: "customerName",
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <span className="itemName">{tableMeta.rowData[1]}</span>
+          return <span className="itemName">{tableMeta.rowData[1]}</span>;
         },
       },
     },
@@ -44,21 +55,29 @@ const Customer = () => {
     filter: false,
   };
 
-  const getBillsData = async () => {
+  const getBillsData = async (payload) => {
     try {
-      const result = await getAllBills(userId);
+      const result = await getAllBills(payload);
       setBills(result);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    getBillsData();
+    const payload = {
+      userId: userId,
+      date: date ? date.date : undefined
+    };
+    getBillsData(payload);
   }, []);
 
   return (
     <>
-    <Header isMenu={true} />
+      <Header isMenu={true} />
+      <div className="goToDashboard">
+        <ArrowBackIcon />
+        <NavLink to={"/dashboard"}>Go To Dashboard</NavLink>
+      </div>
       <MUIDataTable
         title={"Customer Details"}
         data={bills}

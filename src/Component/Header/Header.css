@@ -1,5 +1,6 @@
 .header {
-  height: 120px;
+  min-height: 120px;
+  height: auto;
   background: #0e1927;
   display: flex;
   align-items: flex-start;
@@ -10,7 +11,8 @@
   justify-content: space-between;
   background: #e6c9a2;
   padding: 0em 1em;
-  height: 40px;
+  min-height: 40px;
+  height: auto;
 }
 .companyInfo .email,
 .companyInfo .contactNo {

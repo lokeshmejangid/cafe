@@ -2,8 +2,8 @@ import axios from "axios";
 
 //base url
 const instance = axios.create({
-  //baseURL: "https://restobillingbackend.onrender.com/",
-  baseURL: "http://localhost:3006",
+  baseURL: "https://restobillingbackend.onrender.com/",
+  //baseURL: "http://localhost:3007",
   headers: {
     'Content-Type': 'application/json',
   }
@@ -60,14 +60,25 @@ export const addCustomerBill = async (payload) => {
 };
 
 //get all customer bill
-export const getAllBills = async (id) => {
+export const getAllBills = async (payload) => {
   try {
-    const response = await instance.get(`/api/bills/allBills/${id}`);
+    console.log(payload)
+    const response = await instance.get("/api/bills/allBills", { params: payload });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
+
+// //user info
+// export const getAllBills = async (payload) => {
+//   try {
+//     const response = await instance.get(`/api/bills/allBills/${payload.userId}`);
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 //register user
 export const registerUserData = async (payload) => {
@@ -83,6 +94,16 @@ export const registerUserData = async (payload) => {
 export const loginUserData = async (payload) => {
   try {
     const response = await instance.post("/api/auth/login", payload);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//user info
+export const getUserInfo = async (payload) => {
+  try {
+    const response = await instance.get(`/api/info/getInfo`, {params: payload});
     return response.data;
   } catch (error) {
     throw error;

@@ -9,8 +9,12 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const AddEditModal = (props) => {
+  const theme = useTheme();
+  const xs = useMediaQuery(theme.breakpoints.only('xs'));
   const { invoice, subTotal, handleClose, handleBills } = props;
 
   const [txtCustomerName, setCustomerName] = useState("");
@@ -81,7 +85,7 @@ const AddEditModal = (props) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Grid container spacing={0} className="modal">
+      <Grid container spacing={0} className={`modal ${xs && 'modal-xs'}`}>
         <Grid item xs={12}>
           <div className="title">Generate Invoice</div>
         </Grid>
